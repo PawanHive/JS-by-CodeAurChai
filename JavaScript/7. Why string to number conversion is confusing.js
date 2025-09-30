@@ -38,3 +38,10 @@ let gameCounter1 = 100
 console.log(gameCounter1)    // Output: 101 //(here you didn't find differece in both operator but it has... follow below)
 
 // NOTE: learn about Prefix and Postfix Operator from JS mdn website 
+
+let n1 = 5;
+console.log(++n1); // 6 (prefix: increment first, return new value)
+
+let n2 = 5;
+console.log(n2++); // 5 (postfix: return old value, then increment)
+console.log(n2);   // 6 (increment happened after)

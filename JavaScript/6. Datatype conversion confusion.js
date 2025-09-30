@@ -62,7 +62,7 @@ console.log(valueInNumber5)          // Output: 0
 /*
 1 => true;  0 => false
 "" => false
-"Pawan" => ture
+"Pawan" => true
 */
 
 // LIKE THIS YOU CAN ALSO CONVERT NUMBER INTO STRING BELOW:

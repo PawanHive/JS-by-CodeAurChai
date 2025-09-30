@@ -45,4 +45,5 @@ console.log(typeof heros)       // Output: object
 console.log(typeof myObj)       // Output: object
 console.log(typeof myFunction)  // Output: function
 
-// QnA JavaScript is Static typed or Dynamic Typed language
+// QnA JavaScript is Static typed or Dynamic Typed language: Ans- JS is Dynamic Typed language
+
