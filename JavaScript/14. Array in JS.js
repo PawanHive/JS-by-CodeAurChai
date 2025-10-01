@@ -18,7 +18,7 @@ myfruits.shift() // remove data from first
 
 console.log(myfruits)
 console.log(myfruits.includes('kiwi')) // search kind of method, if data exit then true, not exit then false
-console.log(myfruits.indexOf(4))
+console.log(myfruits.indexOf('kiwi'))
 
 // this actually convert array output into string:
 const newArr = myfruits.join() // will convert array's output into string

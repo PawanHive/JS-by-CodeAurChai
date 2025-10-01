@@ -11,7 +11,7 @@ const allHeros = marvel_heros.concat(dc_heros)
 //console.log(allHeros)// this will merge properly, first assign in varible (allHeros) 
 // but this above options are not best way to merge two arrays 
 
-// here is spred way to merge arrays:
+// here is SPREAD OPERATOR way to merge arrays:
 
 const all_new_heros = [...marvel_heros, ...dc_heros] // merge array my spred operator (...ArrayName)
 console.log(all_new_heros)

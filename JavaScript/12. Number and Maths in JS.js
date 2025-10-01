@@ -3,7 +3,7 @@ console.log(score)                      // Output: 400
 
 
 //Normally, you don’t need it 🚫.But it allows access to methods and properties of the Number object (though primitives can auto-box too):
-const balance = new Number(100) 
+const balance = new Number(100)  // this is number object
 console.log(balance)                    // Output: [Number: 100]
 
 console.log(balance.toString().length)  // Output: 3
@@ -20,7 +20,7 @@ const otherNumber2 = 1123.8966
 console.log(otherNumber2.toPrecision(3)) // Output: 1.12e+3
 
 const hundreds = 1000000
-console.log(hundreds.toLocaleString('en-IN'))
+console.log(hundreds.toLocaleString('en-IN')) //Output: 10,00,000
 
 // ++++++++++++++++ Maths ++++++++++++++++++++++
 

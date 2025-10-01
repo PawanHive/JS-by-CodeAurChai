@@ -14,7 +14,7 @@ console.log(typeof myDate) //Output: object //(interview question hai)
 // your own create date
 let myCreateDate = new Date(2025, 0, 23) // remember month in Js start from zero(0) like index number
 console.log(myCreateDate)
-console.log(myCreateDate.toDateString())
+console.log(myCreateDate.toDateString()) //Output: Thu Jan 23 2025
 
 let myCreateDateTime = new Date(2025, 0, 23, 5, 3, 30) // after date it will convert into time
 console.log(myCreateDateTime.toLocaleString())
@@ -24,7 +24,7 @@ console.log(myCreateDateTime1.toLocaleString())
 
 // here about timeStamp
 
-let myTimeStamp = Date.now()
+let myTimeStamp = Date.now()// remember syntax
 
 console.log(myTimeStamp) // this will print milliseconds from (01 jan, 1970)
 console.log(myCreateDateTime.getTime())  // this i will print milliseconds from createDateTime
