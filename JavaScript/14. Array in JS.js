@@ -2,7 +2,7 @@
 
 // different way to declaration of array
 
-const myHeros =['shaktiman', 'naagraj', 'ram']
+const myHeros = ['shaktiman', 'naagraj', 'ram']
 
 const myfruits = new Array('orange', 'banana', 'apple', 'kiwi')
 console.log(myfruits[1])

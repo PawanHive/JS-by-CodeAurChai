@@ -14,7 +14,7 @@ console.log('W')
 console.log('A')
 console.log('N')
 }
-sayMyName()       //without parenthesis() function name is just a REFERENCE
+sayMyName       //without parenthesis() function name is just a REFERENCE
 sayMyName()     //with parenthesis() fuction will EXECUTE(calling the function)
 
 
@@ -127,3 +127,14 @@ function loginUserMessage3(username = 'You'){        // if you forget to give AR
 }
 console.log(loginUserMessage3()) //Output: You, just logged in       // "You", getting from PARAMETER section, because "You" defined as a DEFAULT value
 console.log(loginUserMessage3('PAWAN YADAV'))   //Output: PAWAN YADAV, just logged in      // here "You" is OVERWRITE by "PAWAN YADAV", because we give it as a ARGUMENT.
+
+
+
+//======================= REVISION AND PRACTICE SESSION =====================================
+
+
+function add(a, b) {
+    console.log(a + b)
+    return
+}
+add(5, 5)

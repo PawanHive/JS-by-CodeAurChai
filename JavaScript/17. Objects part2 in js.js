@@ -26,14 +26,15 @@ Non-Singleton ≈ Created with new (different instances, even if value looks sam
 //ANOTHER WAY TO DECLARE OBJECTS:
 
 const tinderUse1 = new Object()
-console.log(tinderUse1)     // Output: {} //(empty)
+console.log(tinderUse1)     // Output: {} //(empty object)
 
 const tinderUser = {}
 tinderUser.id = '123abc'
 tinderUser.name = 'Sammy'
 tinderUser.isLoggedIn = false
 
-console.log(tinderUser)
+console.log(tinderUser)         //Output: { id: '123abc', name: 'Sammy', isLoggedIn: false }
+console.log(typeof tinderUser)  //Output: object
 
 //--------------------------------------------------------------------------------------------------------------------------
 

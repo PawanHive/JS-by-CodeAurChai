@@ -23,7 +23,7 @@ console.log(real_another_array)
 
 
 console.log(Array.isArray('pawan')) //Checks if the given value is an array. output: false
-console.log(Array.from('pawan')) // convertedin array output: [ 'p', 'a', 'w', 'a', 'n' ]
+console.log(Array.from('pawan')) // converted in array output: [ 'p', 'a', 'w', 'a', 'n' ]
 console.log(Array.from({name: 'pawan'})) // interview question // but this will give empty array
 
 let score1 = 100

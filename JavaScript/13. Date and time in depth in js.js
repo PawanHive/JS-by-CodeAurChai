@@ -35,3 +35,4 @@ console.log(newDate)
 console.log(newDate.getMonth() + 1) // this will print month and +1 because js start month from 0 thats why added 1
 console.log(newDate.getDay()) // print days in number like (2 for tuesday)
 
+console.log((myCreateDateTime.getTime() / 1000))
