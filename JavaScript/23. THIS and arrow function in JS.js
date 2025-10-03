@@ -24,7 +24,7 @@ console.log(this)     //output: {}      //because global scope has no context
 // IS (this) WILL WORK  ON FUNCTION ONLY? NO.  (let see below)
 
 function chai(){
-    console.log(this)            //this will give (a big output), which we can understand 
+    console.log(this)            //this will give (a big output), which we can't understand 
 }
 chai()
 
