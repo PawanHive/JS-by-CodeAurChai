@@ -1,4 +1,4 @@
-//++++++++++++ for ++++++++++++++++
+//++++++++++++ for loop ++++++++++++++++
 
 for (let index = 0; index < 10; index++) {
     const element = index ;
@@ -71,3 +71,6 @@ for (let index = 0; index <= 20; index++) {
     console.log(`Value of i is ${index}`)
     
 }
+
+
+//++++++++++++++ REVISION AND PRACTICE +++++++++++++++++++++++++++++++

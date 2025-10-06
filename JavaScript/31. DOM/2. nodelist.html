@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DOM</title>
+    </head>
+    <body style="background-color: #212121; color: white;">
+        <div class="parent">
+            <!-- this is comment -->
+            <div class="day">Monday</div>
+            <div class="day">Tuesday</div>
+            <div class="day">Wednesday</div>
+            <div class="day">Thursday</div>
+        </div>
+    </body>
+    <script>
+        const parent = document.querySelector('.parent')
+        console.log(parent);
+        console.log(parent.children);              //Output:HTMLCollection(4) [div.day, div.day, div.day, div.day] // this will give HTMLColelction
+        console.log(parent.children[1]);
+        console.log(parent.children[1].innerHTML);
+
+        for (let i = 0; i < parent.children.length; i++) {
+            console.log(parent.children[i].innerHTML);
+            
+        }
+        parent.children[1].style.color = 'orange'
+        console.log(parent.firstElementChild);       //monday
+        console.log(parent.lastElementChild);        //thursday
+
+        const dayOne = document.querySelector('.day')   //(querySelector) always print first element, but (querySelectorAll) print all elemnt
+        .log(dayOne);
+
+        .log(dayOne.parentElement.outerHTML);    
+        // output window console: 
+        // <div class="parent">
+        //     <div class="day">Monday</div>
+        //     <div class="day">Tuesday</div>
+        //     <div class="day">Wednesday</div>
+        //     <div class="day">Thursday</div>
+        // </div>
+        console.log(dayOne.nextElementSibling.outerHTML);   //class="day">Tuesday</div>
+
+
+// ------------------ Leaning Nodelist ----------------------------------------
+        console.log("NODES: ", parent.childNodes);    //give you the node list of parentchild
+        //window console output: NodeList(11) [text, comment, text, div.day, text, div.day, text, div.day, text, div.day, text]
+        
+    </script>
+</html>

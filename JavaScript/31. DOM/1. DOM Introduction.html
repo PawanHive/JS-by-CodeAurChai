@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DOM learning</title>
+        <style>
+            .bg-black {
+                background-color: #212121;
+                color: white;
+            }
+        </style>
+    </head>
+    <body class="bg-black">
+        <div>
+            <h1 id="title" class="heading">DOM learning on Chai aur code <span style="display: none">text text</span></h1>
+            <h1>
+                <h2>Lorem ipsum dolor sit </h2>
+                <h2>Lorem ipsum dolor sit.</h2>
+                <h2>Lorem ipsum dolor sit.</h2>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <input type="password">
+
+                <ul>
+                    <li class="list-item">one</li>
+                    <li class="list-item">two</li>
+                    <li class="list-item">three</li>
+                    <li class="list-item">four</li>
+                </ul>
+            </h2>
+            </h1>
+        </div>
+    </body>
+</html>
+
+<!-- 
+Opened Brendan Eich wiki - open inspect - then console - then run:
+console.log(window)
+console.log(window.document)
+console.log(document)
+console.dir(document)
+
+console.log(document.baseURI) ----------- will print base(main) URL
+console.log(document.links) ----------- will print all links in document (in HTMLCollection format)
+console.log(document.links[2]) ------------ will print second links in document
+
+document.getElementById('firstHeading')  ------------ this is selector method by id (we can do manipualtion on it)
+document.getElementById('firstHeading').innerHTML = '<h1> Pawan Yadav </h1>'-------- this will preplace 'Bendan Eich' name by my name 'Pawan Yadav'....at wikipeida page
+
+-->
+
+<!-- 
+open this document inspect:= - console:
+
+document.getElementById('title')
+document.getElementById('title').id ------- it will allow you to access id
+document.getElementById('title').className ------- it will allow you to access class
+document.getElementById('title').getAttribute('id')  ----- it will give you attribute of id
+document.getElementById('title').getAttribute('class') ------ it will give you attribute of class
+
+document.getElementById('title').setAttribute('class', 'text') ------ it will overwrite the exiting class attribute to 'text' (always overwrite happen)
+
+document.getElementById('title') ---- [run this and to store into variable follow below step]
+const title = document.getElementById('title')
+
+title.style.backgroundColor = 'green' ----- this will make title backgroundcolor green
+title.style.padding = '15px'   ----- add padding
+title.style.borderRadius = '15px' ---------------- add border radius
+
+
+
+
+—------------ Interesting —--------------------------
+// here we will see how to add element
+title.innerText —---------//OUTPUT: 'DOM learning on Chai aur code'  //will print text
+title.textContent —-------//OUTPUT: 'DOM learning on Chai aur code text text'    //will print text, but also print hidden text (jo css ke madat se chhipai jati hai jaise (display:’none’))
+title.innerHTML —---- //OUTPUT: 'DOM learning on Chai aur code <span style="display: none">text text</span>'   //will print content with html element
+
+
+++++++++++++++++++++ query selector +++++++++++++++++++++++++++
+document.querySelector('h2') —---<h2>Lorem ipsum dolor sit </h2>
+document.querySelector('#title') —- This will return the first element in your HTML that has the id="title".
+document.querySelector('.heading') —----  It will select the first element in the HTML document that has the class heading.
+document.querySelector('input[type="password"') —----It will return the first <input> element in your document where the attribute type="password".
+
+
+++++++++++++ how to change backgroundcolor and padding of first list ++++++++++++++++++
+document.querySelector('ul')
+const myul = document.querySelector('ul')
+myul.querySelector('li')
+const turnGreen = myul.querySelector('li')
+turnGreen.style.backgroundColor = 'green'
+turnGreen.style.padding = '15px'
+
+
+turnGreen.innerText = 'five' —-- it will manipulate ‘one’ to ‘five’
+
+
+document.querySelectorAll('li') — will give nodelist of ‘li’
+const tempLiList = document.querySelectorAll('li')
+tempLiList   —- again it will print nodelist of ‘li’
+—---------------------------------------------------------------
+myArr = [1, 2, 3] —--- declared by me,and print with prototype list
+
+
+tempLiList.style.color = 'green' —-- throw error because of syntax(we should specify it)
+tempLiList[1].style.color = 'green'---- it will make second ‘li’ (green)
+
+
+tempLiList.forEach( function (l) {
+    l.style.backgroundColor = 'green'
+} )-------------------------------- this will make all li backgroundcolor green
+
+
+
+
+—------------------------------------------------------------------------
+const myH1 = document.querySelectorAll('h1') —--- declare in variable
+myH1 —------- print h1 nodelist
+myH1.style.color = 'green' —-------- try to make it green but throw error because i didn’t specify (counsa wala h1)
+myH1[0].style.color = 'green'---------- this will make h1 color green
+
+
+—----------------------------------------------------------------------
+document.getElementsByClassName('list-item') —---give HTMLcollection
+const tempClassList = document.getElementsByClassName('list-item') —- declaring it into variable
+tempClassList —--- will print HTMLcollection of ‘li’
+Array.from(tempClassList) —---------- convert HTMLCollection into Array list
+
+
+const myConvertedArray = Array.from(tempClassList) —--- assigning into variable
+myConvertedArray —--------- call assigned variable
+
+
+myConvertedArray.forEach(function(li) {
+    li.style.color = 'orange'
+}) —---------------------------- it will convert all li color into ‘orange’
+
+
+++++++ having fun in to javascript wiki +++++++++++++
+
+
+document.querySelectorAll('#Creation_at_Netscape')
+
+
+const cla = document.querySelectorAll('#Creation_at_Netscape')
+
+
+Cla
+
+
+cla[0].innerText
+
+
+
+
+cla.forEach(function (c) {
+    c.style.color = 'red'
+})
+
+
+
+
+cla.forEach(function (c) {
+    c.style.color = 'red';
+    c.style.backgroundColor = 'black';
+})
+
+
+
+-->

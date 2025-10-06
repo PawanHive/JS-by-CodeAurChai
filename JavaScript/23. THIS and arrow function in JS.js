@@ -57,7 +57,7 @@ chai()
 
 //ARROW FUNCTIONS CAN RETURN VALUES IN TWO WAYS:
 
-//==> 1st: (EXPLICIT RETURN (you write return-statement))
+//==> 1st: (EXPLICIT RETURN (you need to write return-statement))
 const addTwo = (num1, num2) => {                //REMEMBER/SYNTAX**
     return num1 + num2
 }

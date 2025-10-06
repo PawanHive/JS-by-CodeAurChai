@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+</head>
+<body style="background-color: #212121; color: white;">
+    <ul class="language">
+        <li>JavaScript</li>
+    </ul>
+</body>
+<!-- learn to add element -->
+<script>
+    function addLanguage(langName){                 
+        const list = document.createElement('li')    //REMEMBER/SYNTAX**   // 1. Create a new <li> element
+        list.innerHTML = `${langName}`                // 2. Add text inside <li> using the function argument (langName)
+        document.querySelector('.language').appendChild(list)  // 3. Find the element with class "language" in the document 
+                                                            //    (most likely a <ul> or <ol>) and append the new <li> inside it
+    }
+    addLanguage('python')       // Call the function to add <li> "python"
+    addLanguage('typescript')      // Call the function to add <li> "typescript"
+//NOTE: but this is not optimized way to add element beause it traversing ("Traversing" means moving through the DOM tree)
+
+//NOW HERE WE WILL LEARN TO ADD ELEMENT IN A OPTIMIZED WAY: (here we will not use (.innerHTML))
+        function addOptiLanguage(langName) {
+
+            // Step 1: Create a new <li> element
+            // 'li' is now a <li> element in memory (not yet in the DOM)
+            const list = document.createElement('li')
+
+            // Step 2: Create a text node containing the language name
+            // This converts the string 'langName' into a text node
+            // Example: if langName = "golang", this creates a text node "golang"
+            // Step 3: Append the text node to the <li> element
+            // Now the <li> element contains the text: <li>golang</li>
+            list.appendChild(document.createTextNode(langName))    //REMEMBER/SYNTAX**  //can also write like this         //const addText = document.createTextNode(langName)
+                                                                                                //list.appendChild(addText)
+             
+            // Step 4: Find the parent element with class "language"
+            // This is the <ul> or <ol> where we want to add our <li>                                                                                    
+            // Step 5: Append the <li> element to the parent list
+            // This adds the <li> to the DOM so it becomes visible on the webpage    
+            document.querySelector('.language').appendChild(list)                                  
+        }
+        
+        // Call the function to add 'golang' to the list
+        addOptiLanguage('golang')
+
+
+// HERE WE WILL LEARN HOW TO (EDIT):
+
+        const secondLang = document.querySelector('li:nth-child(2)')    //REMEMBER/SYNTAX**
+        //secondLang.innerHTML = 'Mojo'       // this line can edit but not optimized
+        const newli = document.createElement('li')
+        newli.textContent = 'Mojo'
+        secondLang.replaceWith(newli)       //REMEMBER/SYNTAX**
+       
+// HERE ONE ME (EDIT) EXAMPEL: (replace (JavaScript) to (TypeScript))
+        const firstLang = document.querySelector('li')
+        firstLang.outerHTML = '<li>TypeScript</li>'     //REMEMBER/SYNTAX**
+
+
+// HERE WE WILL LEARN HOW TO (REMOVE):
+        const lastLang = document.querySelector('li:last-child')
+        lastLang.remove()               //REMEMBER/SYNTAX
+</script>
+</html>

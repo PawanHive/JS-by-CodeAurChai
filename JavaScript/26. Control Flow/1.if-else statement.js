@@ -92,9 +92,3 @@ console.log(val4) //output: 30
 const iceTeaPrice = 100
 iceTeaPrice <= 80 ? console.log('less than 80') : console.log('more than 80')  //condition ? true : false
 //output: more than 80
-
-
-
-
-
-

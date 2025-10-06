@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chai aur code </title>
+</head>
+<body style="background-color: #212121; color: white;">
+    
+</body>
+<!-- HOW TO CREATE ELEMENT IN DOM -->
+<script>
+     const div = document.createElement('div')              //this will create element
+    console.log(div)               
+    div.className = 'main'                                  // add class name 'main'
+    div.id = Math.round(Math.random() * 10 + 1)             // add random id
+    div.setAttribute('title', 'generated title')            //add title attribute
+    div.style.backgroundColor = 'green'                     // add background color
+    div.style.padding = '12px'                              // add padding
+
+    //div.innerText = 'chai aur code'            // note: creating element like this (overwrite the ealier one)
+
+    const addText  = document.createTextNode('chai aur code') // this also doing same work like above line (add text)
+    div.appendChild(addText)
+    // till here if you noticed (hamne sab kuchh add toh kar diya lekin document me dikh nahi raha toh uske liye kya... follow belowline: )
+
+    document.body.appendChild(div)          //this line will finally attaching create element to document
+
+</script>
+</html>
