@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMI Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <!-- PAGE 1: START SCREEN -->
+  <section id="page1" class="page active">
+    <h1>BMI Calculator</h1>
+    <p>Welcome to your Body Mass Index calculator.</p>
+    <button id="startBtn">Start</button>
+  </section>
+
+  <!-- PAGE 2: INPUT FORM -->
+  <section id="page2" class="page">
+    <h2>Enter Your Details</h2>
+
+    <div class="gender">
+      <button id="maleBtn">Male</button>
+      <button id="femaleBtn">Female</button>
+    </div>
+
+    <label>Age:</label>
+    <input type="number" id="age" placeholder="Years">
+
+    <label>Weight (kg):</label>
+    <input type="number" id="weight" placeholder="kg">
+
+    <label>Height (cm):</label>
+    <input type="number" id="height" placeholder="cm">
+
+    <button id="calcBtn">Calculate BMI</button>
+  </section>
+
+  <!-- PAGE 3: RESULT -->
+  <section id="page3" class="page">
+    <h2>Your BMI Result</h2>
+    <h1 id="bmiValue">--</h1>
+    <p id="bmiMessage">--</p>
+    <button id="backBtn">Back</button>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

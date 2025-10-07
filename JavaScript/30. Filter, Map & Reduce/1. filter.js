@@ -12,9 +12,9 @@ coding.forEach((item) => {
 //==>
 const coding1 = [ 'js', 'ruby', 'java', 'python', 'cpp']
 
-const code = coding.forEach((item) => {             //here we are trying to RETURN (foreach) loop value in variable (code), but it will give undefined. [because (foreach loop) never RETURN the value] 
-    console.log(item);
-    return item                             //RETURN statement will not work for (foreach loop)...giving ('undefined' as output) ... it a rule (foreach loop) never RETURN VALUES.
+const code = coding1.forEach((item) => {             //here we are trying to RETURN (foreach) loop value in variable (code), but it will give undefined. [because (foreach loop) never RETURN the value] 
+    //console.log(item);
+    //return item                             //RETURN statement will not work for (foreach loop)...giving ('undefined' as output) ... it a rule (foreach loop) never RETURN VALUES.
 });
 console.log(code)
 //Output:
