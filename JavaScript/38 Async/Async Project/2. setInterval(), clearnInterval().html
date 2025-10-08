@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ASYNC</title>
+    </head>
+    <body>
+        <h1>Chai aur JavaScript</h1>
+        <button id="start">Start</button>
+        <button id="stop">Stop</button>
+    </body>
+    <script>
+//HERE WE WILL LEARN setInterval():
+//Definition: setInterval() is a JavaScript timing function that repeatedly calls a function at a fixed time interval (in milliseconds).
+        // setInterval(function(){
+        //     //console.log('pawan')            
+        // }, 1000)
+        // //so this code will print 'Pawan' repeatedly after 1sec
+
+        // setInterval(function(){
+        //     //console.log('pawan', Date.now())            
+        // }, 1000)
+        // // so this code will print 'pawan' with current (Date.now()) value also, now here you can see what actually code is doing in the console
+
+        // //==> setInterval() method also print third parameter:
+        // const hiDate = function(str){
+        //     console.log(str, Date.now())    //(str) is string variable of 'hi' 
+        // }
+        // setInterval(hiDate, 2000, 'hi')     // setInterval() method also take third argumnet ( in third argument you can pass any type of value like: string, number, boolean, object, array, even function)
+        
+
+//HERE, THE TASK IS WHEN WE CLICK ON START BUTTON (my name with current date should start priting) and when i click on stop (printing should stop):
+            
+        
+        document.querySelector('#start').addEventListener('click', function(){
+            const printDateName = setInterval(function(){
+            console.log('GAMA YADAV', Date.now())
+        }, 1000)
+
+        document.querySelector('#stop').addEventListener('click', function(){
+            clearInterval(printDateName)
+        })
+        })
+
+        
+    </script>
+</html>

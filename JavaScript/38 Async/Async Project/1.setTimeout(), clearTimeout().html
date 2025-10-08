@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Async</title>
+    </head>
+    <body>
+        <h1>Chai aur code</h1>
+        <button id="stop">stop</button>
+    </body>
+    <script>
+        // setTimeout(function(){
+        //     console.log('Pawan');
+        // }, 2000)                    //2000millisecond = 2second (its a timeout value) after 2s it will automatically prrint in console
+
+//THIS IS ALSO SAME LIKE ABOVE CODE(here we declared function differently and in setTimeout() just give function reference by itj's name and 2000milisecond(2s))
+        const sayPawan = function(){
+            console.log('Pawan Yadav')
+        }
+        setTimeout(sayPawan, 2000) 
+        
+//NOW SUPPOSE YOU HAVE TO CHANGE HEADING OF THE PAGE FROM 'Chai aur code' to 'best js series' BUT, (CONDITION IS AFTER 5SECOND)
+        
+        //==> this will change heading instantly:
+        //document.querySelector('h1').innerHTML = 'best JS series'
+
+        //==> this code will change heading after 2seconds:
+        const changeHeading = function(){
+            document.querySelector('h1').innerHTML = 'BEST JS SERIES'
+        }
+        setTimeout(changeHeading, 5000)
+
+
+//Now suppose, you have to stop something before setTimeout() execute, so we have to use clearTimeout() method and we have to give the reference of setTimeout() and need to declare event (means at what event setTimeout() should stop thier execution)
+
+        const stopMe =  setTimeout(changeHeading, 5000)
+
+        document.querySelector('#stop').addEventListener('click', function() {
+            clearTimeout(stopMe);
+            console.log('STOPPED')
+        })
+        // SO, the conslusion is: if i click on the 'stop' button of the page within 5second then the heading will not change, otherwise it will change after 5sec (means this give us a code feature (we can stop changes within 5sec) )
+    </script>
+</html>
