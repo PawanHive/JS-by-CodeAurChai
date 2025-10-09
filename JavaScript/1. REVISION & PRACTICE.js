@@ -54,9 +54,25 @@ console.log(code)
 const myNums3 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 
-const newNums3 = myNums3.forEach( (num) => {
-    if (num > 7) {
-        newNums3.push(num)
-    }
-})      
-console.log(newNums3)
+// const newNums3 = myNums3.forEach( (num) => {
+//     if (num > 7) {
+//         newNums3.push(num)
+//     }
+// })      
+// console.log(newNums3)
+
+const user = {
+    username: "Pawan", 
+    price: 199
+function handleObject(anyobject) {
+   // console.log(`Username is ${anyobject.username} and price is ${anyobject.price}.`)       //REMEMBER/SYNTAX**
+    console.log(`Username is ${this.username} and price is ${this.price}.`)       //REMEMBER/SYNTAX**
+}
+
+}
+
+function handleObject(anyobject) {
+   // console.log(`Username is ${anyobject.username} and price is ${anyobject.price}.`)       //REMEMBER/SYNTAX**
+    console.log(`Username is ${this.username} and price is ${this.price}.`)       //REMEMBER/SYNTAX**
+}
+handleObject(user)

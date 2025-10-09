@@ -1,4 +1,4 @@
-// ++++++++++++++++++++++++ Function with Object +++++++++++++++++++++++++++++
+// ++++++++++++++++++++++++ Function with REST PARAMETER +++++++++++++++++++++++++++++
 
 // WHEN YOU DON'T KNOW (HOW MANY ARGUMENT CAN PASS?).. LIKE ADDING THE SHOPING CART PRICES OF ITEMS
 //==>
