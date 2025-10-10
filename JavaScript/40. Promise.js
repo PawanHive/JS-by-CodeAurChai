@@ -117,7 +117,7 @@ consumePromiseFive();       //REMEMBER/SYNTAX**   //here you need to callback th
 
 
 //USING Promise[with async/await] & fetch() method FOR ApiRequest:
-
+//.fetch() means "Go and get some data from a server ( usually from the URL). // .fetch() basically request and receive data from server."
 async function getAllUsers() {
     try {
         const response = await fetch('https://jsonplaceholder.typicode.com/users')

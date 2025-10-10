@@ -17,82 +17,82 @@
         </div>
     </body>
     <script>
-//         document.getElementById('owl').onclick = function(){            // (onclick event) is not best approach give alert 
-//             //alert('owl clicked')
-//         }
-// // EVENT LISTENERS:
-// //SYNTAX: element.addEventListener('event', functionName, false)
-//         document.getElementById('owl').addEventListener('click', function(){
-//             //alert('owl clicked again')
-//         }, false)      // learn more about (addEventListenr event) in detail, this is most powerful event
+        document.getElementById('owl').onclick = function(){            // (onclick event) is not best approach give alert 
+            //alert('owl clicked')
+        }
+// EVENT LISTENERS:
+//SYNTAX: element.addEventListener('event', functionName, false)
+        document.getElementById('owl').addEventListener('click', function(){
+            //alert('owl clicked again')
+        }, false)      // learn more about (addEventListenr event) in detail, this is most powerful event
 
-// // this below code will give you a list of event in window console(just open console and click on owl):
-//         document.getElementById('owl').addEventListener('click', function(e){
-//             console.log(e)
-//         }, false)
-//         //console: PointerEvent {isTrusted: true, pointerId: 3, width: 1, height: 1, pressure: 0, …}
+// this below code will give you a list of event in window console(just open console and click on owl):
+        document.getElementById('owl').addEventListener('click', function(e){
+            console.log(e)
+        }, false)
+        //console: PointerEvent {isTrusted: true, pointerId: 3, width: 1, height: 1, pressure: 0, …}
 
-//         // this below event is compulsory to learn: 
-//         // type, timestamp, defaultPrevented
-//         // target, toElement, srcElement, currentTarget, 
-//         //clientX, ClientY, screenX, screenY
-//         //altkey, ctrlkey, shiftkey, keyCode
+        // this below event is compulsory to learn: 
+        // type, timestamp, defaultPrevented
+        // target, toElement, srcElement, currentTarget, 
+        //clientX, ClientY, screenX, screenY
+        //altkey, ctrlkey, shiftkey, keyCode
 
-// //-----------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------
 
-// // EVENT PROPAGATION: [(EVENT BUBBLING(flow outwards): false) & (EVENT CAPTURING(flow inwards: true))]
+// EVENT PROPAGATION: [(EVENT BUBBLING(flow outwards): false) & (EVENT CAPTURING(flow inwards: true))]
 
 
-//     // this is example of EVEN BUBBLING(flow outwards): false
-//         document.getElementById('images').addEventListener('click', function(){     //this is targeting whole 'images'
-//             console.log('Clicked inside the ul')
-//         }, false)                                                   //note that event's third parameter is (false)
+    // this is example of EVEN BUBBLING(flow outwards): false
+        document.getElementById('images').addEventListener('click', function(){     //this is targeting whole 'images'
+            console.log('Clicked inside the ul')
+        }, false)                                                   //note that event's third parameter is (false)
         
-//         document.getElementById('owl').addEventListener('click', function(){            //this is targeting 'owl'
-//             console.log('owl clicked')
-//         }, false)                                                   //note that event's third parameter is (false) & false is default
+        document.getElementById('owl').addEventListener('click', function(){            //this is targeting 'owl'
+            console.log('owl clicked')
+        }, false)                                                   //note that event's third parameter is (false) & false is default
 
-//         //NOTICE HERE: the sequence of print in window console:
-//             //console output: // owl clicked
-//                               // Clicked inside the ul
-//             // ...means event propagation is flowing outwards (like real life bubble flow) that why it called EVENT BUBBLING
+        //NOTICE HERE: the sequence of print in window console:
+            //console output: // owl clicked
+                              // Clicked inside the ul
+            // ...means event propagation is flowing outwards (like real life bubble flow) that why it called EVENT BUBBLING
 
-//     // this is example of EVENT CAPTURING(flow inwards): true
-//         document.getElementById('images').addEventListener('click', function(){     //this is targeting whole 'images'
-//             console.log('Clicked inside the ul')
-//         }, true)                                               //note that event's third parameter is (true)
+    // this is example of EVENT CAPTURING(flow inwards): true
+        document.getElementById('images').addEventListener('click', function(){     //this is targeting whole 'images'
+            console.log('Clicked inside the ul')
+        }, true)                                               //note that event's third parameter is (true)
 
-//         document.getElementById('owl').addEventListener('click', function(){            //this is targeting 'owl'
-//             console.log('owl clicked')
-//         }, true)                                               //note that events third parameter is (true)
+        document.getElementById('owl').addEventListener('click', function(){            //this is targeting 'owl'
+            console.log('owl clicked')
+        }, true)                                               //note that events third parameter is (true)
 
-//         //NOTICE HERE: the sequence of print in window console:
-//             //console output: // Clicked inside the ul
-//                               // owl clicked
-                // ...means event propagation is flowing inwards (lik capturing) that why it called EVENT CAPTURING
+        //NOTICE HERE: the sequence of print in window console:
+            //console output: // Clicked inside the ul
+                              // owl clicked
+                //...means event propagation is flowing inwards (lik capturing) that why it called EVENT CAPTURING
 
 //----------------------------------------------------------------------------------------------------------------------------------
-// // HERE WE WILL LEARN ABOUT stopPropagation()  &  preventDefault() method:
+// HERE WE WILL LEARN ABOUT stopPropagation()  &  preventDefault() method:
 
-//     // stopPropagation() METHOD:
-//         document.getElementById('images').addEventListener('click', function(){     //this is targeting whole 'images'
-//             console.log('Clicked inside the ul again')
-//         }, false)                                                   
+    // stopPropagation() METHOD:
+        document.getElementById('images').addEventListener('click', function(){     //this is targeting whole 'images'
+            console.log('Clicked inside the ul again')
+        }, false)                                                   
         
-//         document.getElementById('owl').addEventListener('click', function(e){            //this is targeting 'owl'
-//             console.log('owl clicked again')
-//             e.stopPropagation()      //stops the event from bubbling or capturing any further
-//         }, false)
+        document.getElementById('owl').addEventListener('click', function(e){            //this is targeting 'owl'
+            console.log('owl clicked again')
+            e.stopPropagation()      //stops the event from bubbling or capturing any further
+        }, false)
 
-//         //NOTICE HERE: in window console Only 'owl clicked again' will print because, we added applied stopPropagation() method so "Clicked inside the ul again" will not print. 
-//             //console output: // 'owl clicked again'
+        //NOTICE HERE: in window console Only 'owl clicked again' will print because, we added applied stopPropagation() method so "Clicked inside the ul again" will not print. 
+            //console output: // 'owl clicked again'
 
 
-//     // preventDefault() METHOD: (here we will do after clicking on goolge link, link should not redirect me to that link (means link should not work))
-//         document.getElementById('google').addEventListener('click', function(e){
-//             console.log('google click');
-//             e.preventDefault();          // cancel default behavior of the event
-//         }, false)
+    // preventDefault() METHOD: (here we will do after clicking on goolge link, link should not redirect me to that link (means link should not work))
+        document.getElementById('google').addEventListener('click', function(e){
+            console.log('google click');
+            e.preventDefault();          // cancel default behavior of the event
+        }, false)
 
 //----------------------------------------------------------------------------------------------------------
 //NOW OUR TASK IS WHEN WE CLICK ON THE IMAGE, IMAGE SHOULD BE DISAPPEAR:
@@ -104,7 +104,7 @@
             //console.log(e.target.tagName);          //returns the name of the HTML tag (always in UPPERCASE).
 
             if (e.target.tagName === 'IMG') {              
-                let removeIt = e.target.parentNode;
+                let removeIt = e.target.parentNode;         // will select the parent node (<li>) of the target node (<img>)
                 removeIt.remove();               //removeIt.parentNode.removeChild(removeIt) ----- this line can also use to remove
              }    
             

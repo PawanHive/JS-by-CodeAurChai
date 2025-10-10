@@ -27,7 +27,7 @@ let intervalId;
 function changeBgColor () {
         document.body.style.backgroundColor = randomColor();
     }
-
+    
 document.querySelector('#start').addEventListener('click', function(){
     //intervalId = setInterval(changeBgColor, 2000);      //this line need minor changes, because if we accidently click start buttom multiple times, then multiple interval start and then as an outcome you will background color change more frequent than(per 2sec)...because multiple interval start...below line will fix this problem:
     if(!intervalId) {                                   // actually (intervalId = undefined) means false but, as here (!intervalId → true)
