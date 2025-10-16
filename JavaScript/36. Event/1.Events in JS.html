@@ -17,14 +17,14 @@
         </div>
     </body>
     <script>
-        document.getElementById('owl').onclick = function(){            // (onclick event) is not best approach give alert 
+        document.getElementById('owl').onclick = function(){            // (onclick event) is not best approach to give alert 
             //alert('owl clicked')
         }
 // EVENT LISTENERS:
 //SYNTAX: element.addEventListener('event', functionName, false)
         document.getElementById('owl').addEventListener('click', function(){
             //alert('owl clicked again')
-        }, false)      // learn more about (addEventListenr event) in detail, this is most powerful event
+        }, false)      // learn more about (addEventListener event) in detail, this is most powerful event
 
 // this below code will give you a list of event in window console(just open console and click on owl):
         document.getElementById('owl').addEventListener('click', function(e){
@@ -48,7 +48,7 @@
             console.log('Clicked inside the ul')
         }, false)                                                   //note that event's third parameter is (false)
         
-        document.getElementById('owl').addEventListener('click', function(){            //this is targeting 'owl'
+        document.getElementById('owl').addEventListener('click', function(){            //this is targeting 'owl' only
             console.log('owl clicked')
         }, false)                                                   //note that event's third parameter is (false) & false is default
 
