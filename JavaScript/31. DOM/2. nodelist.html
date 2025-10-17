@@ -28,9 +28,9 @@
         console.log(parent.lastElementChild);        //thursday
 
         const dayOne = document.querySelector('.day')   //(querySelector) always print first element, but (querySelectorAll) print all elemnt
-        .log(dayOne);
+        console.log(dayOne);
 
-        .log(dayOne.parentElement.outerHTML);    
+        console.log(dayOne.parentElement.outerHTML);    
         // output window console: 
         // <div class="parent">
         //     <div class="day">Monday</div>
@@ -41,7 +41,7 @@
         console.log(dayOne.nextElementSibling.outerHTML);   //class="day">Tuesday</div>
 
 
-// ------------------ Leaning Nodelist ----------------------------------------
+// ------------------ Learning Nodelist ----------------------------------------
         console.log("NODES: ", parent.childNodes);    //give you the node list of parentchild
         //window console output: NodeList(11) [text, comment, text, div.day, text, div.day, text, div.day, text, div.day, text]
         

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Practical Closure</title>
+    </head>
+    <body style="background-color: #313131; color: white;">
+        <button id="orange">Orange</button>
+        <button id="green">Green</button>
+    </body>
+    <script>
+        // document.getElementById('orange').onclick = function() {
+        //     document.body.style.backgroundColor = 'orange';
+        // }
+        // document.getElementById('green').onclick = function() {
+        //     document.body.style.backgroundColor = 'green';
+        // }
+
+        // // now this is not a optimized way to do it, suppose have to do for multiple buttons.
+
+//------------------------------------------------------------------------------------------------------------------
+
+        //==> HERE WE WILL TRY OPTIMIZED CODE TO DO THE SAME ABOVE THING:
+
+        // function clickHandler(color) {
+        //     document.body.style.backgroundColor = `${color}`
+        // }
+
+        // document.getElementById('orange').onclick =clickHandler('orange');
+        // document.getElementById('green').onclick =clickHandler('green');
+
+        //     /*
+        //     PROBLEM OF THIS CODE: 
+        //         without clicking on button color change automatically
+        //         because, clickHandler('orange') or clickHandler('green') execute immediately, 
+        //         because we call clickHandler() function and as we know calling function excecute immediately
+
+        //         the solution is: we have to call the function but that function should return the inner function reference
+        //         means, we have to take the help of CLOSURE concept here.
+        //     */
+
+//------------------------------------------------------------------------------------------------------
+
+        //NOW, here we will take help of CLOSURE concept to solve the problem:
+
+        function clickHandler(color) {
+
+            return function() {                                        //here CLOSURE concept applied (by returning the inner function)
+                document.body.style.backgroundColor = `${color}`
+            }
+        }
+
+        document.getElementById('orange').onclick = clickHandler('orange')
+        document.getElementById('green').onclick = clickHandler('green')
+        
+    </script>
+</html>
