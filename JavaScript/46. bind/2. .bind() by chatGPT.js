@@ -24,7 +24,7 @@ That causes confusion when a function:
 
 const user = {
   username: "Abhishek",
-  greet() {
+  greet() {                                             // METHOD shorthand syntax  (user.prototype.greet = function() {})
     console.log(`Hello, ${this.username}`);
   }
 };

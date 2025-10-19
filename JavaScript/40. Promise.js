@@ -37,7 +37,7 @@ new Promise(function(resolve, reject){
             //Creating promise
 const promiseThree = new Promise(function(resolve, reject) {
     setTimeout(function(){
-        resolve({userName: 'Pawan', email: 'pawan@gmail.com'})          // suppose i took object in the resolve() method
+        resolve({userName: 'Pawan', email: 'pawan@gmail.com'})          //REMEMBER: resolve() can take only one paramter.  // suppose i took object in the resolve() method
     }, 1000)
 })
             //consuming promise
@@ -94,7 +94,7 @@ async function consumePromiseFive() {                   //REMEMBER/SYNTAX**
         console.log(error);
     }
 }
-consumePromiseFive();       //REMEMBER/SYNTAX**   //here you need to callback the async function at the end.
+consumePromiseFive();       //REMEMBER/SYNTAX**   //here you need to call the async function at the end.
 
 
         //==>Promise with one paramter(resolve), then we no need IF-ELSE statement to CREATE PROMISE and we don't need TRY-CATCH loop to CONSUME PROMISE
