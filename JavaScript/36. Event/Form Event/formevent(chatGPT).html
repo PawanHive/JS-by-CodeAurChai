@@ -1,0 +1,57 @@
+<!--  THIS EXAMPLE WILL TEACH DIFFERENCE BETWEEN (e.target) & (e.currentTarget) -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #formContainer {
+        width: 300px;
+        padding: 15px;
+        background: #f0f0f0;
+        border-radius: 10px;
+      }
+
+      input {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 8px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+
+      .highlight {
+        border-color: limegreen;
+        background-color: #eaffea;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="formContainer">
+      <input type="text" placeholder="Name">
+      <input type="email" placeholder="Email">
+      <input type="password" placeholder="Password">
+    </div>
+
+    <script>
+      const container = document.getElementById('formContainer');
+
+      container.addEventListener('focusin', (e) => {
+        console.log('target:', e.target);
+        console.log('currentTarget:', e.currentTarget);
+
+        // Remove highlight from all inputs
+        container.querySelectorAll('input').forEach((input) => {
+          input.classList.remove('highlight');
+        });
+
+        // Highlight the one that triggered the event
+        if (e.target.tagName === 'INPUT') {
+          e.target.classList.add('highlight');
+        }
+      });
+    </script>
+  </body>
+</html>

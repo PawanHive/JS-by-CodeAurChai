@@ -8,6 +8,11 @@ console.log(myDate.toJSON())             //Output: 2025-09-30T07:18:45.603Z
 console.log(myDate.toLocaleString())     //Output: 30/9/2025, 12:48:45 pm
 console.log(myDate.toLocaleDateString()) //Output: 30/9/2025
 console.log(myDate.toDateString())       //Output: Tue Sep 30 2025
+console.log(myDate.toLocaleTimeString())       //Output: Tue Sep 30 2025
+console.log(myDate.toUTCString())       //Output: Tue Sep 30 2025
+console.log(myDate.toTimeString())       //Output: Tue Sep 30 2025
+console.log(myDate.getTimezoneOffset())       //Output: Tue Sep 30 2025
+
 
 console.log(typeof myDate) //Output: object //(interview question hai)
 

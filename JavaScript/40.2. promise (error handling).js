@@ -67,7 +67,7 @@ fetchUserData()
                         Operation finished
                         */
 
-//-------------------------------------- 🌈 2. Using Promise ----------------------------------------------
+//-------------------------------------- ⚡ 3. Using Async/Await ----------------------------------------------
 
 function fetchUserData() {
     return new Promise((resolve, reject) => {

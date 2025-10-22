@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>e.target vs e.currentTarget vs this</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    #product-list {
+      border: 2px solid gray;
+      width: 250px;
+      padding: 10px;
+      border-radius: 8px;
+      background-color: #f8f8f8;
+    }
+
+    li {
+      list-style: none;
+      margin: 10px 0;
+    }
+
+    button {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      background-color: lightgray;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🛍️ Shopping Cart Example</h2>
+  <p>Click any "Add to Cart" button to see how <b>e.target</b>, <b>e.currentTarget</b>, and <b>this</b> work.</p>
+
+  <ul id="product-list">
+    <li><button class="add-btn">Add Apple 🍎</button></li>
+    <li><button class="add-btn">Add Banana 🍌</button></li>
+    <li><button class="add-btn">Add Orange 🍊</button></li>
+  </ul>
+
+  <script>
+    const productList = document.getElementById('product-list');
+
+    // Event delegation — one listener for all buttons
+    productList.addEventListener('click', function(e) {
+
+      // e.target → the actual clicked button
+      if (e.target.classList.contains('add-btn')) {
+
+        // highlight the clicked button
+        e.target.style.background = 'lime';
+        console.log('🟢 e.target:', e.target.textContent);
+
+        // e.currentTarget → always refers to the UL (listener attached element)
+        console.log('🟣 e.currentTarget:', e.currentTarget.id);
+
+        // this → same as e.currentTarget (because function is not an arrow function)
+        this.style.border = '3px solid orange';
+        console.log('🟠 this:', this.id);
+
+        // Reset border and button color after 1.5 seconds (just for demo)
+        setTimeout(() => {
+          e.target.style.background = 'lightgray';
+          this.style.border = '2px solid gray';
+        }, 1500);
+      }
+    });
+  </script>
+
+</body>
+</html>
+
+<!-- 
+| Term                  | 1-Line Meaning                                                        |
+| --------------------- | --------------------------------------------------------------------- |
+| **`e.target`**        | The exact element that triggered the event.                           |
+| **`e.currentTarget`** | The element on which the event listener is attached.                  |
+| **`this`**            | Inside a normal function (not arrow), it refers to `e.currentTarget`. |
+
+-->

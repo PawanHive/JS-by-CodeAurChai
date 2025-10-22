@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>classList</title>
+        <style>
+
+            body {
+                font-family: Arial, sans-serif;
+                padding: 20px;
+            }
+
+            input, select {
+                display: block;
+                margin: 10px 0;
+                padding: 8px;
+                font-size: 16px;
+                border: 2px solid #ccc;
+                border-radius: 5px;
+                transition: 0.3s;
+            }
+            /* Highlight class for focused inputs/selects */
+            .highlight {
+                background-color: lime;
+                border-color: green;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Focus & Blur Highlight Examples</h2>
+        <p>Click or tab into the inputs/select to see the highlist effect using <b>classList</b></p>
+
+        <form action="" id="form">
+            <input type="text" id="name" placeholder="Name"> 
+            <input type="text" id="class" placeholder="Class"> 
+            <select name="" id="country">
+                <option value="">Select Country</option>
+                <option value="india">India</option>
+                <option value="usa">USA</option>
+                <option value="uk">UK</option>
+            </select>
+        </form>
+
+        <script>
+            // Select all focusable elements inside the form
+            const fields = document.querySelectorAll('#form input, #form select');
+
+            fields.forEach((element) => {
+                element.addEventListener('focus', function() {
+                    element.classList.add('highlight');    // using classList to directly add class form CSS part
+                });
+
+                element.addEventListener('blur', function() {
+                    element.classList.remove('highlight');     // using classList to remove class
+                });
+            });
+        </script>
+    </body>
+</html>
+
+<!DOCTYPE html>
+
+  </script>
+
+</body>
+</html>
+
+<!-- 🧩 What is classList?
+
+Every HTML element has a property called classList, which is like a list of all CSS classes applied to that element.
+It’s better than using element.className because it gives built-in methods to add, remove, toggle, or check classes without worrying about spaces. -->
+
+
+<!-- /*
+| Method                  | Description                                   | Example                                   |
+| ----------------------- | --------------------------------------------- | ----------------------------------------- |
+| `add('classname')`      | Adds a class if it doesn’t exist              | `element.classList.add('active')`         |
+| `remove('classname')`   | Removes a class if it exists                  | `element.classList.remove('active')`      |
+| `toggle('classname')`   | Adds if missing, removes if present           | `element.classList.toggle('hidden')`      |
+| `contains('classname')` | Checks if a class exists → returns true/false | `element.classList.contains('active')`    |
+| `replace('old', 'new')` | Replaces an existing class with another       | `element.classList.replace('old', 'new')` |
+*/ -->
+
+
