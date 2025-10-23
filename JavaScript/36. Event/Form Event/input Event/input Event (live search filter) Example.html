@@ -1,0 +1,80 @@
+<!-- THIS EXMAPLE WILL EXPLAIN THE USE OF (input Event): -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Live Search</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 40px;
+                background-color: #f9f9f9;
+            }
+
+            h2 {
+                color: #333;
+            }
+
+            #searchBox {
+                width: 250px;
+                padding: 10px;
+                border: 2px solid #007BFF;
+                border-radius: 8px;
+                font-size: 16px;
+                outline: none;
+            }
+
+            li {
+                background-color: white;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                padding: 10px;
+                margin-bottom: 8px;
+                transition: background-color 0.3s;
+                width: 300px;
+            }
+
+            li:hover {
+                background-color: #e6f0ff;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Live Search using Input Event</h2>
+        <p>Type below to filter the fruits list:</p>
+
+        <!-- This input field triggers the input event -->
+        <input type="text" id="searchBox" placeholder="Search fruits...">
+
+        <ul id="fruitList">
+            <li>Apple</li>
+            <li>Banana</li>
+            <li>Orange</li>
+            <li>Mango</li>
+            <li>Strawberry</li>
+            <li>Pineapple</li>
+            <li>Grapes</li>
+            <li>Watermelon</li>
+        </ul>
+
+        <script>
+            const searchBox = document.getElementById('searchBox');
+            const fruitList = document.getElementById('fruitList');
+            const items = document.getElementsByTagName('li');
+
+            searchBox.addEventListener('input', function(e) {
+                const searchText = e.target.value.toLowerCase();
+
+                for (const item of items) {
+                    const fruitName = item.textContent.toLowerCase();
+
+                    if (fruitName.includes(searchText)) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

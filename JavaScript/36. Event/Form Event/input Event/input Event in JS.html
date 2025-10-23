@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Input Event in Js</title>
+        <style>
+
+            p {
+                margin: 10px 0;
+            }
+            div {
+                border: 1px solid black;
+                display: inline-block;
+                width: 200px;
+                border-color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <form action="">
+            
+            <input type="text" placeholder="Type here..." id="myInput">             <!--Input element to trigger event -->
+
+            <p> what you will type in (type here...) input that will display here:
+                <div id="displayText">Nothing yet...</div>                              <!-- Output area -->
+            </p>
+
+            <script>
+                // Get input and display elements
+                const inputField = document.getElementById('myInput');
+                const display = document.getElementById('displayText');
+
+                inputField.addEventListener('input', function(e) {      // Add event listener for input event
+                    display.textContent = e.target.value;               //(e.target.value) is a property of HTML form elements like <input>, <textarea>, <select> It represents the current value of the form element - the text or data inside it.
+                })
+            </script>
+        </form>
+    </body>
+</html>
