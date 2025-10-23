@@ -1,0 +1,57 @@
+<!-- 
+ 🧠 What is the change event?
+
+The change event occurs when the value of an input, select, or textarea changes and the element loses focus —
+
+meaning:
+
+    ==> You type something → move the cursor away → change fires.
+    ==> You select a new option in a dropdown → change fires immediately.
+    ==> You check or uncheck a checkbox → change fires immediately.
+-->
+
+<!-- 
+📅 When & Where to Use:
+
+| Use Case                                             | Why                                                          |
+| ---------------------------------------------------- | ------------------------------------------------------------ |
+| ✅ Detect final input after user is done typing       | Avoid constant updates while typing (useful for performance) |
+| ✅ Forms with dropdowns or checkboxes                 | Detect user’s final choice                                   |
+| ✅ Submitting form data or enabling/disabling buttons | Trigger logic after change is confirmed                      |
+| ✅ Settings or preferences pages                      | Update user settings once selection changes                  |
+
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Change Event</title>
+        <style>
+            div {
+                border: 1px solid red;
+                padding: 2px;
+                width: 300px;
+            }
+        </style>
+    </head>
+    <body>
+        <form action="">
+            <input type="text"  id="myInput" placeholder="Type here...">             <!-- Input element -->
+
+            <!-- Output -->
+            <p>
+                Type in the box and then click outside to see the change event fire:
+                <div id="displayText">Nothing yet</div>
+            </p>
+
+            <script>
+                const inputField = document.getElementById('myInput');
+                const display = document.getElementById('displayText');
+
+                // 'change' event fires when user finishes editing and moves focus away
+                inputField.addEventListener('change', function(e) {
+                    display.textContent = e.target.value;               // Show final value
+                })
+            </script>
+        </form>
+    </body>
+</html>

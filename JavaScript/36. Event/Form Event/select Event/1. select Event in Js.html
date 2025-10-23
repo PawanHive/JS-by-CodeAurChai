@@ -1,0 +1,58 @@
+<!-- 
+ 🧠 What is the select event?
+
+The select event occurs when a user selects (highlights) text inside a text <input> or <textarea> element using mouse, keyboard, or touch.
+
+    👉 It doesn’t fire when you choose an option from a dropdown <select> — that’s handled by the change event.
+    select = text highlight event
+    change = value change event
+-->
+
+<!-- 
+📅 When & Where We Use select:
+
+| Use Case                           | Why                                                                       |
+| ---------------------------------- | ------------------------------------------------------------------------- |
+| ✅ Detect when user highlights text | Useful for custom UI actions (copy, format, comment, etc.)                |
+| ✅ Text editing apps                | To show context tools (bold, italic buttons, etc.)                        |
+| ✅ Analytics                        | To detect what part of a message or form user interacts with              |
+| ✅ Accessibility tools              | To respond when user selects text (e.g., read aloud or highlight meaning) |
+
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>(select) Event</title>
+        <style>
+            div {
+                border: 1px solid red;
+                padding: 5px;
+                width: 300px;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Understanding the Select Event</h2>
+        <p>Select (highlight) any part of the text inside the box</p>
+
+        <input type="text" id="myInput" placeholder="Type something and select...">
+
+        <p>Your selected text will display here:
+            <div id="selectedText"></div>
+        </p>
+
+        <script>
+            const input = document.getElementById('myInput');
+            const display = document.getElementById('selectedText');
+
+            input.addEventListener('select', function(e) {
+                const start = e.target.selectionStart;          // selectionStart → start index of selection.
+                const end = e.target.selectionEnd;              // selectionEnd → end index of selection.
+                const selected = e.target.value.substring(start, end);
+
+                display.textContent = selected || 'none';
+            })
+        </script>
+    </body>
+</html>

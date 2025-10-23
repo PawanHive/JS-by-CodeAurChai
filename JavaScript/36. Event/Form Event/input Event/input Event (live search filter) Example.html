@@ -58,20 +58,24 @@
         </ul>
 
         <script>
+            // Get references to input and list
             const searchBox = document.getElementById('searchBox');
             const fruitList = document.getElementById('fruitList');
             const items = document.getElementsByTagName('li');
 
+            // Add input event listener
             searchBox.addEventListener('input', function(e) {
-                const searchText = e.target.value.toLowerCase();
+                const searchText = e.target.value.toLowerCase();        // Get current input value (converted to lowercase)
 
+                // Loop through all list items
                 for (const item of items) {
-                    const fruitName = item.textContent.toLowerCase();
+                    const fruitName = item.textContent.toLowerCase();   // Compare input text with list item text
 
+                    // If matches, show it; otherwise, hide it
                     if (fruitName.includes(searchText)) {
-                        item.style.display = '';
+                        item.style.display = '';            // show
                     } else {
-                        item.style.display = 'none';
+                        item.style.display = 'none';        // hide
                     }
                 }
             })
