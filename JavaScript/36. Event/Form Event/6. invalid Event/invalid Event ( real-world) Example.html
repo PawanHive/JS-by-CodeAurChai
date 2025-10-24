@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>(invalid) Event</title>
+        <style>
+            input {
+                border: 2px solid gray;
+                outline: none;
+                padding: 5px;
+            }
+            input:invalid {
+                border: 2px solid red;
+            }
+            input:valid {
+                border: 2px solid green;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>SignUp Page (with Live Validation):</h2>
+        <form action="" id="signupForm">
+            <label for="">Email:</label>
+            <input type="email" id="email" placeholder="Enter valid email" required>
+            <p id="errEmail"></p><br><br>
+
+            <label for="">Password:</label>
+            <input type="text" id="password" placeholder="Min 6 characters" minlength="6" required>
+            <p id="errPassword"></p><br><br>
+
+            <button type="submit">Sign Up</button>
+        </form>
+        <p id="errorMsg"></p>
+
+
+        <script>
+            const signupForm = document.getElementById('signupForm');
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+            const errorMsg = document.getElementById('errorMsg');
+            const errEmail = document.getElementById('errEmail');
+            const errPassword = document.getElementById('errPassword');
+
+            email.addEventListener('invalid', function(e){
+                e.preventDefault()
+                errEmail.textContent = "Please enter a valid email address.";
+                errEmail.style.color = 'red';
+            })
+            password.addEventListener('invalid', function(e){
+                e.preventDefault()
+                errPassword.textContent = "Password must be at least 6 characters.";
+                errPassword.style.color = 'red';
+            })
+
+            // runs every time user types in email field
+            email.addEventListener('input', function() {
+                if (email.validity.valid) {                     // checks built-in HTML validity
+                    errEmail.textContent = 'Email looks good!'
+                    errEmail.style.color = 'green';
+
+                    // ✅ Optional: hide success message after a few seconds
+                    setTimeout(() => {
+                        errEmail.textContent = '';
+                    }, 2000);
+                } else {
+                    errEmail.textContent = 'Invalid email format'
+                    errEmail.style.color = 'red';
+                }
+            })
+
+            // runs every time user types in password field
+            password.addEventListener('input', function() {
+                if (password.validity.valid) {                                  // runs every time user types in password field
+                    errPassword.textContent = 'Password strength is good!'
+                    errPassword.style.color = 'green';
+
+                    // ✅ Optional: hide success message after a few seconds
+                    setTimeout(() => {
+                        errPassword.textContent = '';
+                    }, 2000);
+                } else {
+                    errPassword.textContent = 'Pssword must be at least 6 characters.'
+                    errPassword.style.color = 'red';
+                }
+            })
+
+            // runs every time user types in password field
+            signupForm.addEventListener('submit', function(e){
+                e.preventDefault()
+                if (email.validity.valid && password.validity.valid) {
+                errorMsg.textContent = "Signup successful!";
+                errorMsg.style.color = 'green';
+
+                signupForm.reset();
+                email.style.border = "2px solid gray";
+                password.style.border = "2px solid gray";
+
+                // ✅ Optional: hide success message after a few seconds
+                    setTimeout(() => {
+                        errorMsg.textContent = '';
+                    }, 2000);
+            }
+            })
+
+            
+        </script>
+    </body>
+</html>
+

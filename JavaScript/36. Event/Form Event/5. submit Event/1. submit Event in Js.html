@@ -1,0 +1,72 @@
+<!-- 
+ 🧠 What is the submit event?:
+
+    ==> The submit event fires when a form is submitted (usually by pressing a submit button or hitting Enter inside a form field).
+    ==> It is used to handle form submission before the page actually reloads.
+    ==> You can prevent the default form submission using event.preventDefault() and instead run custom JavaScript logic, such as validation or sending data via AJAX.
+-->
+
+<!-- 
+🕒 When to use it
+
+    ==> Use the submit event when you want to:
+    ==> Validate form input before submission.
+    ==> Stop page reload (default behavior).
+    ==> Send data manually using JavaScript (for example, using fetch()).
+    ==> Give user feedback after they click “Submit”.
+-->
+
+<!-- 
+🌍 Where it’s used
+
+In any form:
+
+    ==> Login forms
+    ==> Sign-up forms
+    ==> Feedback/contact forms
+    ==> Search bars
+    ==> Payment or checkout forms
+-->
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>(select) Event</title>
+        <style>
+            p {
+                color: rgb(0, 255, 34);
+            }
+            button {
+                margin: 10px 0;
+            }
+        </style>
+    </head>
+    <body>
+        <form action="" id="simpleForm">
+            <input type="text" id="name" placeholder="Name" required>
+            <button>Submit</button>
+        </form>
+        <p id="message"></p>
+
+
+        <script>
+            // Select the form
+            const form = document.getElementById('simpleForm');
+
+            // Add submit event listener
+            form.addEventListener('submit', function(e) {           // REMEMBER: (submit) Event hamesha form par lagaya jata hai button par nahi.
+                e.preventDefault();     // Prevent the form from refreshing the page
+
+                // Get input value
+                const name = document.getElementById('name').value;
+
+                // Show a message
+                document.getElementById('message').textContent = `Hello ${name}, your form has been submitted!.`
+
+                // Clear the input
+                form.reset();           //REMEMBER function.
+            })
+        </script>
+    </body>
+</html>

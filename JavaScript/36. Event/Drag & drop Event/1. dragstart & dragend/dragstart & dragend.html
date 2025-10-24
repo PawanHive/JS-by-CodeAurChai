@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>(dragstart & dragend) Event</title>
+        <style>
+            #list li {
+                background-color: gray;
+                margin: 5px 0;
+                padding: 10px;
+                width: 300px;
+            }
+            #list li.dragging {
+                opacity: 0.5;
+                border: 2px dashed black;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Re-Order the Items</h2>
+        <ul id="list">
+            <li draggable="true" id="item1">Item 1</li>
+            <li draggable="true" id="item2">Item 2</li>
+            <li draggable="true" id="item3">Item 3</li>
+        </ul>
+
+        <script>
+            const listItems = document.querySelectorAll('#list li');
+
+            listItems.forEach(item => {
+
+                item.addEventListener('dragstart', function(e) {
+                    item.classList.add('dragging');
+                });
+
+                item.addEventListener('dragend', function(e) {
+                    item.classList.remove('dragging');
+                });
+            })
+        </script>
+    </body>
+</html>

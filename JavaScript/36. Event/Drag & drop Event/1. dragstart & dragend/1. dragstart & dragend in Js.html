@@ -1,0 +1,69 @@
+<!-- 
+🧠 What are dragstart and dragend events?:
+
+1. dragstart:
+
+    Fired when the user starts dragging an element.
+    Usually used to store information about the element being dragged (like its ID) or change its appearance while dragging.
+
+2. dragend:
+
+    Fired when the drag action ends, regardless of whether the element was dropped successfully.
+    Can be used to reset styles, remove drag effects, or trigger other actions after dragging. 
+-->
+
+<!-- 
+🕒 When to use
+
+    When you want drag-and-drop functionality.
+    When you want to visually show that an element is being dragged.
+    When you need to capture data about the element for further processing on drop.
+-->
+
+<!-- 
+🌍 Where it’s used
+
+    Dragging files into upload areas.
+    Drag-and-drop lists (sorting items).
+    Custom UI elements (like dragging images, boxes, or cards around a dashboard).
+-->
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>dragstart & dragend Event</title>
+        <style>
+            #dragBox {
+                background-color: rgb(153, 221, 153);
+                width: 100px;
+                height: 100px;
+                text-align: center;
+                line-height: 100px;
+                cursor: grab;
+            }
+
+            #dragBox.dragging {
+                opacity: 0.5;
+                border: 2px dashed black;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Drag the Box</h2>
+        <div id="dragBox" draggable="true">Drag Me!</div>
+
+        <script>
+            const dragBox = document.getElementById('dragBox');
+
+            dragBox.addEventListener('dragstart', function() {
+                dragBox.classList.add('dragging');
+                console.log('drag started!')
+            })
+            dragBox.addEventListener('dragend', function() {
+                dragBox.classList.remove('dragging');
+                console.log('drag ended!')
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>(submit) Event</title>
+        <style>
+            input {
+                display: block;
+                margin: 10px 0;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Login Form</h2>
+
+        <form action="" id="simpleForm">
+        <label for="">Name:</label>
+        <input type="text" id="email" >
+
+        <label for="">Password:</label>
+        <input type="text" id="password" >
+
+        <button type="submit">Login</button>
+        </form>
+        <p id="status"></p>
+    </body>
+
+
+    <script>
+        const form = document.getElementById('simpleForm');
+        const status = document.getElementById('status');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (email === "" || password === "") {               // means email & password should not = empty
+                status.textContent = '⚠️ please fill all fields.';
+                status.style.color = 'red';
+            } 
+            else if (!email.includes('@')) {
+                status.textContent = '❌ Invalid email format';
+                status.style.color = 'red';
+            }
+            else {
+                status.textContent = "✅ Login successfully."
+                status.style.color = 'green';
+            }
+        })
+    </script>
+</html>
