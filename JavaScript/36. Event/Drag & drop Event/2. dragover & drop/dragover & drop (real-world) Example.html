@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>dragover & drop</title>
+        <style>
+            .board {
+                display: inline-flex;
+            }
+
+            .task {
+                background-color: lightblue;
+                padding: 10px;
+                margin: 10px;
+            }
+
+            .column {
+                border: 2px dashed gray;
+                margin: 20px;
+                width: 200px;
+                height: 300px;
+                text-align: center;
+            }
+
+            .column.over {
+                border: 2px dashed green;
+                background-color: #b8e6b8;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Task Board (Drag and Drop Example)</h2>
+
+        <div class="board">
+            <!-- first column -->
+            <div class="column" id="todo">
+                <h3>To Do</h3>
+                <div class="task" draggable="true">Task 1</div>
+                <div class="task" draggable="true">Task 2</div>
+            </div>
+
+            <!-- second column -->
+            <div class="column" id="progress">
+                <h3>In Progress</h3>
+            </div>
+
+            <!-- third column -->
+            <div class="column" id="done">
+                <h3>Done</h3>
+            </div>
+        </div>
+
+
+        <script>
+                const tasks = document.querySelectorAll('.task')
+                const columns = document.querySelectorAll('.column')
+
+                let draggedTask = 'null';                           // Variable to store the task currently being dragged
+            
+                // 🔹 DRAGSTART - when task starts dragging
+                tasks.forEach(task => {
+                    task.addEventListener('dragstart', function() {
+                        draggedTask = task;                         // Store the dragged task
+                        task.style.opacity = 0.5;                   // Make the task semi-transparent while dragging
+                        console.log('dragstart activated')
+                    });
+
+                    // 🔹 DRAGEND - reset style
+                    task.addEventListener('dragend', function() {
+                        draggedTask = 'null';                       // Clear the reference after dragging
+                        task.style.opacity = 1;                     // Restore task opacity back to normal
+                        console.log('dragend activated')
+                    });
+                });
+
+
+                // 🔹 DRAGOVER - allows columns to accept drops
+                columns.forEach(column => {
+                    column.addEventListener('dragover', function(e) {       // hightlight column when task drag over column.
+                        e.preventDefault();                         // Prevent default to allow dropping
+                        column.classList.add('over');               // Highlight column to indicate drop is allowed
+                        console.log('dragover activated')
+                    });
+
+                    // 🔹 DROP - when task dropped into column
+                    column.addEventListener('drop', function(e) {
+                        e.preventDefault();                         // Prevent browser default behavior (like opening text)
+                        column.classList.remove('over');            // Remove highlight after drop
+                        if (draggedTask) {
+                            column.appendChild(draggedTask);        // Move the dragged task into this column (learn more in below explanation part)
+                        }
+                        console.log('drop activated')
+                    });
+
+                    // 🔹 DRAGLEAVE - remove highlight when leaving
+                    column.addEventListener('dragleave', function() {       // when we dragged task to another column, at that time when task leave the previous column... previous column will automatically lose color
+                        column.classList.remove('over');
+                    });
+                });
+        </script>
+    </body>
+</html>
+
+
+<!-- ++++++++++++++++++++++++++++++ Explanation ++++++++++++++++++++++++++++++++++++ -->
+
+
+<!--------------------- HERE IS MORE ABOUT (appendChild(child))---------------------------  -->
+
+<!-- 
+🔹 column.appendChild(draggedTask);
+
+This is the key part. Let’s understand it carefully:
+
+1. What appendChild does:
+    appendChild is a DOM method that adds a node (element) as the last child of another element.
+
+    Syntax:
+    parent.appendChild(child);
+
+    After this, the child becomes inside the parent in the DOM tree.
+
+2. In your code:
+
+    column → the parent element (the column where you dropped the task)
+    draggedTask → the task element being dragged
+    column.appendChild(draggedTask) → moves the dragged task into this column as the last child.
+
+Important point:
+
+    If the element already exists somewhere else in the DOM, appendChild automatically removes it from its current parent and moves it to the new parent.
+    That’s why the task disappears from the “To Do” column and appears in “In Progress” or “Done” — no need to manually remove it first.
+-->
+
+<!-- 3️⃣ Visual Example (DOM before & after drop) -->
+
+<!-- Before drop: -->
+<!-- 
+    <div id="todo">
+    <div id="task1">Task 1</div>
+    </div>
+
+    <div id="progress">
+    </div> 
+-->
+
+
+<!-- After dropping Task 1 into “progress” column: -->
+<!-- 
+    <div id="todo">
+    </div>
+
+    <div id="progress">
+    <div id="task1">Task 1</div>   
+    </div>  
+-->
+
+<!-- ----------------------------------------------------------------------------------- -->

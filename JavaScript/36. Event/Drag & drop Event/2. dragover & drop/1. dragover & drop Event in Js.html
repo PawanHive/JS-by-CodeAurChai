@@ -1,0 +1,105 @@
+<!-- 
+ 🧠 What are dragover and drop events?
+🔹 dragover
+
+    ==> Fires continuously when a draggable element is moved over a valid drop target.
+    ==> y default, most elements do not allow dropping.
+    ==> To make an element droppable, you must call event.preventDefault() inside the dragover event.
+
+🔹 drop
+
+    ==> Fires when the draggable element is released over a valid drop target.
+    ==> Usually used to move, copy, or swap elements.
+    ==> You can access what was dragged via dataTransfer or directly manipulate the DOM. 
+-->
+
+<!-- 
+🕒 When to use
+
+    ==> When building custom drag-and-drop UIs.
+    ==> When you want to move elements from one area to another (e.g., drag file to upload zone, move cards on dashboard).
+    ==> When you want dynamic interaction between draggable and droppable zones.
+-->
+
+<!-- 
+🌍 Where it’s used
+
+    ==> File uploads (dragging files to a box).
+    ==> Reordering tasks (like in Trello).
+    ==> Image arrangement or game objects movement.
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>dragover and drop</title>
+        <style>
+            #dragItem {
+                background-color: greenyellow;
+                height: 100px;
+                width: 100px;
+                outline: 100px;
+                margin: 10px;
+
+                /* these line will move text to center of the box  */
+                display: flex;                  /*Turns the div into flex container*/
+                align-items: center;            /*Centers content vertically*/
+                justify-content: center;        /*Centers content horizontally*/
+            }
+
+            #dropZone {
+                border: 2px dashed rgb(206, 203, 203);
+                height: 300px;
+                width: 250px;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            #dropZone.over {
+                border: 2px dashed green;
+                background-color: #e0ffe0;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Basic Drag & Drop Demo</h2>
+
+        <div id="dragItem" draggable="true">Drag me!</div>
+
+        <div id="dropZone">Drop here</div>
+
+        <script>
+            const dragItem = document.getElementById('dragItem');
+            const dropZone = document.getElementById('dropZone');
+
+            // 🟠 Dragstart - fires when user starts dragging
+            dragItem.addEventListener('dragstart', function() {
+                dragItem.style.opacity = 0.5;
+                console.log('Dragging started')
+            });
+
+            // 🔵 Dragover - fires repeatedly when dragged element is over the drop zone
+            dropZone.addEventListener('dragover', function(e) {
+                e.preventDefault()                              // allows dropping (by default dragover never allow dropping)
+                dropZone.classList.add('over');
+                console.log('dragover activated')
+            });
+
+            // 🟢 Drop - fires when element is dropped on the target
+            dropZone.addEventListener('drop', function(e) {
+                e.preventDefault();
+                dropZone.textContent = 'Dropped!';
+                console.log('Item dropped')
+            })
+
+            // 🔴 Dragend - fires when drag completes (even if not dropped)
+            dragItem.addEventListener('dragend', function() {
+                dragItem.style.opacity = 1;                             // this will again make opacity to 1 after dragend
+                console.log('dragging ended')
+            })
+        </script>
+    </body>
+</html>
+
+
