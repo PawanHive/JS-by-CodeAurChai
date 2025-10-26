@@ -1,0 +1,41 @@
+<!-- 
+ 2️⃣ Load Event
+What it is:
+
+    -Fires when the whole page, including images, stylesheets, and scripts, is fully loaded.
+
+When to use:
+
+    -To perform actions after everything is visible.
+    -Preloaders, animations, or scripts that need full page content.
+
+Where to use:
+
+    -When you need to measure image sizes, initiate sliders, or hide preloader screens.
+-->
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Load Event in just</title>
+        <style>
+            
+        </style>
+    </head>
+    <body>
+        <h1>Page Loading...</h1>
+            <img src="https://via.placeholder.com/600x400" alt="Big Image">     <!-- this image is actually generated dynamically by a remote server each time you request it. so it will take time to reload.-->
+        <img src="https://images8.alphacoders.com/968/968202.jpg" alt="Dua Lipa Image">
+
+        <script>
+            const heading = document.querySelector('h1');
+
+            window.addEventListener('load', function() {                    // REMEMBER: (load) Event only works over window, it will no works even over (document) or any specific element.
+                heading.textContent = "Page and all resources fully loaded!"
+                heading.style.color = 'blue';
+                console.log('Load event fired')
+            })
+        </script>
+    </body>
+</html>

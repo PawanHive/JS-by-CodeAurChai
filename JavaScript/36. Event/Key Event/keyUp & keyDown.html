@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Key Events Concept Example</title>
+</head>
+<body>
+  <h2>Type Anything</h2>
+  <input type="text" id="inputBox" placeholder="Type here..." autofocus>
+  <p id="keyDown"></p>
+  <p id="keyUp"></p>
+
+  <script>
+    const inputBox = document.getElementById('inputBox');
+    const keyDown = document.getElementById('keyDown');
+    const keyUp = document.getElementById('keyUp');
+
+    // 🔹 keydown: fires when key is pressed down
+    inputBox.addEventListener('keydown', (e) => {
+      keyDown.innerHTML = `keydown → Key: "<b>${e.key}</b>", Code: "<b>${e.code}</b>", Repeat: "<b>${e.repeat}</b>"`;     // REMEMBER: event.repeat only works on keyDown events
+      console.log('keydown', e.key, e.code);
+    });
+
+    // // 🔹 keypress: fires when a character-producing key is pressed (deprecated)
+    // inputBox.addEventListener('keypress', (e) => {
+    //   console.log('keypress', e.key, e.code);
+    // });
+
+    // 🔹 keyup: fires when key is released
+    inputBox.addEventListener('keyup', (e) => {
+      keyUp.innerHTML = `keyUp → Key: "<b>${e.key}</b>", Code: "<b>${e.code}</b>"`;
+      console.log('keyup', e.key, e.code);
+    });
+  </script>
+</body>
+</html>

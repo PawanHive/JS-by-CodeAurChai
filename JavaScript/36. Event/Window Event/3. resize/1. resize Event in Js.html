@@ -1,0 +1,58 @@
+<!-- Basic resize Detector -->
+
+<!-- 
+🧠 What is the resize Event?
+🔹 Definition:
+
+    -The resize event fires whenever the browser window is resized (changed in width or height).
+
+🔹 When it fires:
+
+    -When the user manually resizes the window.
+    -When switching from portrait ↔ landscape on mobile devices.
+
+🔹 Where/Why to use:
+
+    -To make responsive layouts or adaptive UI adjustments.
+    -To detect screen size changes and adjust elements accordingly (e.g., hiding sidebar, changing font, etc.).
+    -To handle dynamic scaling, like resizing charts, grids, or videos.
+-->
+
+<!------------------------------ Basic resize Detector ----------------------------------->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>resize Event</title>
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <h2>Resize the Browser Window</h2>
+        <div id="info">
+            Width: <span id="width"></span> |
+            Height: <span id="height"></span>
+        </div>
+
+        <script>
+            const width = document.getElementById('width');
+            const height = document.getElementById('height');
+
+            // function to update size info
+            function updateSize() {
+                width.textContent = window.innerWidth;      // REMEMBER: this property
+                height.textContent = window.innerHeight;    // REMEMBER: this property
+            }
+            // run once on load
+            updateSize();
+
+            window.addEventListener('resize', function() {               //(window.addEventListener('resize', updateSize)) ... this code will also do the same thing
+                updateSize();   // update live when window is resized
+                console.log('Window resized!')
+            });
+
+            window.addEventListener('resize', updateSize)
+        </script>
+    </body>
+</html>

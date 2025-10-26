@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DOMContentLoaded Example</title>
+        <style>
+            #navbar {
+                background-color: lightblue;
+                font-weight: bold;
+                height: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 22px;
+                /* display: none;      hidden initially */
+            }
+        </style>
+    </head>
+    <body>
+        <div id="navbar">Navigation Bar</div>
+        <img src="https://images8.alphacoders.com/968/968202.jpg" alt="Dua Lipa Big Image" >
+
+
+        <script>
+            const navbar = document.getElementById('navbar');
+            
+            document.addEventListener('DOMContentLoaded', function () {
+                // Show navbar as soon as DOM is ready
+                navbar.style.display = 'block';
+                console.log('Navbar is visible after DOMContentLoaded');
+            })
+        </script>
+    </body>
+</html>

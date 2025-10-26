@@ -1,0 +1,57 @@
+<!-- 
+🧠 What is the scroll Event?
+🔹 Definition:
+
+    -The scroll event fires whenever the user scrolls the page or an element that has scrollable content.
+
+🔹 When It Fires:
+
+    -When the user scrolls vertically or horizontally.
+    -When JavaScript changes the scroll position (e.g., window.scrollTo()).
+
+🔹 Where/Why to Use:
+
+    -To create scroll-based effects (like fading text or sticky headers).
+    -To load content dynamically when a user scrolls near the bottom (infinite scrolling).
+    -To highlight active navigation links while scrolling.
+    -To track scroll position (for analytics, animations, etc.). 
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>scroll Event</title>
+        <style>
+            body {
+                height: 2000px;
+            }
+
+            #status {
+                background-color: lightblue;
+                border-radius: 5px;
+                padding: 10px 20px;
+                display: inline-block;
+                position: fixed;        /* Keep it visible while scrolling */
+                top: 10px;              /* top se 10px */    
+                right: 10px;            /* right se 10px */
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Scroll Down to see Scroll Position</h2>
+        <div id="status">Scroll: 0px</div>
+
+
+        <script>
+            const status = document.getElementById('status');
+
+            // Listen for scroll events on the window
+            window.addEventListener('scroll', function() {
+                // window.scrollY → number of pixels scrolled vertically
+                let scrollPos = window.scrollY
+                status.textContent = `Scroll: ${Math.round(scrollPos)}px`
+            })
+        </script>
+    </body>
+</html>

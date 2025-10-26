@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>(dragenter & drag) Event</title>
+        <style>
+            #dragItem {
+                background-color: rgb(142, 189, 142);
+                width: 100px; 
+                height: 100px;
+                margin: 10px;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #dropZone {
+                border: 2px dashed gray;
+                height: 400px;
+                width: 300px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #dropZone.over {
+                border: 2px dashed red;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>DragEnter & Drag Demo</h2>
+
+        <div value="" id="dragItem" draggable="true">Darg me</div>
+
+        <div id="dropZone">Drop here</div>
+
+
+        <script>
+            const dragItem = document.getElementById('dragItem')
+            const dropZone = document.getElementById('dropZone')
+
+            dragItem.addEventListener('dragstart', function() {
+                dragItem.style.opacity = 0.5;
+                console.log('dragstart activated')
+            })
+
+            dragItem.addEventListener('drag', function() {
+                console.log('drag activated')
+            })
+
+            dragItem.addEventListener('dragend', function() {
+                dragItem.style.opacity = 1;
+                console.log('dragend activated')
+            })
+
+
+            dropZone.addEventListener('dragenter', function(e) {
+                e.preventDefault();
+                dropZone.classList.add('over');
+                console.log('dragenter activated')
+            })
+            dropZone.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                console.log('dragover activated')
+            })
+            dropZone.addEventListener('drop', function() {
+                dropZone.textContent = 'Dropped';
+                dropZone.classList.remove('over');
+                console.log('drop activated')
+            })
+        </script>
+    </body>
+</html>

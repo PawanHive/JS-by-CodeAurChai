@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>load Example</title>
+        <style>
+            #preloader {
+                display: flex;                  /* Enables flexbox for centering content */
+                align-items: center;            /* Vertically centers the loading text */
+                justify-content: center;        /* Horizontally centers the loading text */
+                height: 100%; width: 100%;
+                background: white;
+                position: fixed;                /* Keeps the preloader fixed on screen (doesn’t scroll) */
+                top: 0;                         /* Aligns it to the top edge of the viewport */
+                left: 0;                        /* Aligns it to the left edge of the viewport */
+                z-index: 9999;                  /* Places it above all other elements on the page */
+            }
+        </style>
+    </head>
+    <body>
+        <div id="preloader">Loading...</div>
+        <div id="content">
+            <h1>Welcome to the page!</h1>
+            <img src="https://via.placeholder.com/600x400" alt="Big Image">  <!-- this image is actually generated dynamically by a remote server each time you request it. so it will take time to reload.-->
+            <img src="https://images8.alphacoders.com/968/968202.jpg" alt="dua lipa">
+        </div>
+
+
+        <script>
+            const preloader = document.getElementById('preloader');
+            const content = document.getElementById('content');
+
+            window.addEventListener('load', function() {
+                preloader.style.display = 'none';
+                content.style.display = 'block';
+                console.log('All resources loaded, preloader hidden!')
+            })
+        </script>
+    </body>
+</html>

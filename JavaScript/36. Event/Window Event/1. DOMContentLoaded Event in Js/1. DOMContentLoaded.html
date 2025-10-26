@@ -1,0 +1,55 @@
+<!-- 
+ 1️⃣ DOMContentLoaded Event
+What it is:
+
+    -Fires when the HTML is fully parsed, and the DOM is ready.
+    -Does not wait for images, stylesheets, or other external resources to load.
+
+When to use:
+
+    -To safely manipulate DOM elements as soon as they exist.
+    -Faster than load because it doesn’t wait for all assets.
+
+Where to use:
+
+    -Initializing scripts, adding event listeners, manipulating elements before everything loads. 
+-->
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DOMContentLoaded Event</title>
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <h1 id="title">Hello</h1>
+
+        
+        <script>
+// ----------------------------- WRONG CODE -------------------------------------
+
+            // const title = document.getElementById('title');
+
+            // title.addEventListener('DOMContentLoaded', function() {         // WRONG CODE: becasue i added (DOMContentLoaded Event) to specific element (h1) using thier id 'title', but (DOMContentLoaded) works only one document, because it is a window Event.
+            //     title.textContent = "DOM is fully loaded and parsed!";
+            //     title.style.color = 'green';
+            //     console.log('DOMContentLoaded activated');
+            // })
+
+            
+// --------------------------------- RIGHT CODE -------------------------------------
+        
+            const title = document.getElementById('title');
+
+            document.addEventListener('DOMContentLoaded', function() {         // RERMEMBER: (DOMContentLoaded) only belongs to document, it will not work to individual elements like above code we did
+                title.textContent = "DOM is fully loaded and parsed!";
+                title.style.color = 'green';
+                console.log('DOMContentLoaded activated');
+            })
+        </script>
+        
+    </body>
+</html>
