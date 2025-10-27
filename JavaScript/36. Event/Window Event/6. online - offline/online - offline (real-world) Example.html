@@ -1,0 +1,146 @@
+
+<!-- -------------------------- CODE WRITEN BY ME ------------------------------------------- -->
+
+
+<!-- -------🌍 Real-World Example — Offline Warning + Auto Refresh When Back Online--------- -->
+
+<!-- <!DOCTYPE html>
+<html>
+    <head>
+        <title>Online / offline</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 30px;
+            }
+            #status {
+                background-color: black;
+                width: 100%;
+                color: white;
+                text-align: center;
+                position: fixed;
+                bottom: 0px;
+                left: 0;
+                transition: all 0.5s ease;
+                display: none;  /* Hidden by default */
+            }
+        </style>
+    </head>
+    <body>
+        <div id="status"></div>
+
+        <div id="content">
+            <h2>🌍 My News App</h2>
+            <p>This app shows latest new from the internet.</p>
+            <p>Disconnect your internet and reconnect to see what happens!</p>
+        </div>
+        
+        <script>
+            const status = document.getElementById('status');
+            
+            // 🔴 Offline event - show warning
+            window.addEventListener('offline', function() {
+                status.textContent = "You're offline. Check your Connection...";
+                status.style.display = 'block';
+                status.style.backgroundColor = 'red';
+                
+                setTimeout(() => {
+                    status.style.display = 'none';      // status hide
+                }, 3000);
+            });
+
+            // 🟢 Online event - show success message & auto reload data
+            window.addEventListener('online', function() {
+                status.textContent = "Connected";
+                    status.style.display = 'block';
+                    status.style.backgroundColor = 'green';
+
+                setTimeout(() => {
+                    status.style.display = 'none';      // status hide
+                }, 3000);
+
+                // location.reload();               // Uncomment if you want full reload // totally optional
+            });
+            
+            // 🔸 Initial check on page load
+            if (!navigator.onLine) {
+                status.textContent = "You're offline right now.";
+                status.style.backgroundColor = 'black';
+            }
+        </script>
+    </body>
+</html> -->
+
+
+
+
+<!-- ---------------------------- CODE WRITTEN BY chatGPT---------------------------- -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Online / offline</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 30px;
+            }
+            #status {
+                background-color: black;
+                width: 100%;
+                color: white;
+                text-align: center;
+                position: fixed;
+                bottom: 0px;
+                left: 0;
+                transition: all 0.5s ease;
+                display: none;  /* Hidden by default */
+                z-index: 1000;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="status"></div>
+
+        <div id="content">
+            <h2>🌍 My News App</h2>
+            <p>This app shows latest new from the internet.</p>
+            <p>Disconnect your internet and reconnect to see what happens!</p>
+        </div>
+        
+        <script>
+            const status = document.getElementById('status');
+
+            function showStatus(message, color) {
+                status.textContent = message;
+                status.style.backgroundColor = color;
+                status.style.display = 'block';
+            }
+
+            function hideStatusAfter(ms) {              // ms - millisecond
+                setTimeout(() => {                      // this code is also same   // setTimeout(() => status.style.display = 'none', ms)
+                    status.style.display = 'none';
+                }, ms);
+            }
+
+            
+            // 🔴 Offline event - show warning
+            window.addEventListener('offline', function() {
+                showStatus("You're offline. Check your Connection...", 'red');
+            });
+
+            // 🟢 Online event - show success message & auto reload data
+            window.addEventListener('online', function() {
+                showStatus("Connected", 'green')
+                hideStatusAfter(3000);
+
+                // location.reload();               // Uncomment if you want full reload // totally optional
+            });
+            
+            // 🔸 Initial check on page load
+            if (!navigator.onLine) {
+                showStatus("You're offline right now.", 'black');
+            }
+        </script>
+    </body>
+</html>

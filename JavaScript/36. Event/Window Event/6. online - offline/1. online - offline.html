@@ -1,0 +1,68 @@
+<!-- 
+🌐 What Are online and offline Events?
+
+  -The online and offline events let you detect when the user’s internet connection changes —
+  for example, when a user’s Wi-Fi disconnects or they come back online.
+
+🔹 online
+
+  -Fires when the browser regains network connection.
+  -Example: The user reconnects to Wi-Fi or mobile data.
+
+🔹 offline
+
+  -Fires when the browser loses network connection.
+  -Example: The user goes into airplane mode or loses signal. 
+-->
+
+<!-- 
+🕐 When & Where to Use
+
+✅ Use these events to:
+
+  -Notify the user when they go offline or come online.
+  -Pause background sync or uploads when offline.
+  -Auto-retry data fetch when back online.
+  -Show offline UI (like “You’re offline, try again later”).
+
+⚠️ Note:
+These events depend on the browser’s ability to detect connectivity — 
+they may not always reflect actual internet access if you’re connected to a local network without Internet.
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>online / offline Event</title>
+    <style>
+      
+    </style>
+  </head>
+  <body>
+    <h2>Network Status Demo</h2>
+    <p id="status">Checking network status...</p>
+
+    <script>
+      const status = document.getElementById('status');
+
+      function updateStatus() {
+        if (navigator.onLine) {     //navigator.onLine is a JavaScript property that tells you whether the browser currently has an Internet connection or not.
+          status.textContent = '✅ You are online';
+          status.style.color = 'green';
+        } else {
+          status.textContent = '❌ You are offline';
+          status.style.color = 'red';
+        }
+      }
+
+      //  Run on page load
+      updateStatus();
+
+      //  Fires when internet is lost
+      window.addEventListener('offline', updateStatus)
+
+      //  Fires when internet is restored
+      window.addEventListener('offline', updateStatus)
+    </script>
+  </body>
+</html>

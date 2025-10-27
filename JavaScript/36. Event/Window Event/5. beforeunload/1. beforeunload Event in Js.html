@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>beforeunload Event</title>
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <h2>Try to close or refresh this tab</h2>
+        <p>This page will show a confirmation dialog when you try to leave.</p>
+
+        
+        <script>
+            window.addEventListener('beforeunload', function(e) {
+                e.preventDefault();
+                e.returnValue = "";      //REMEMBER Property    // this is special property for (beforeunload) event, it will display thier own generic dialog like: "Changes you made may not be saved."                                        
+            })
+        </script>
+    </body>
+</html>
+
+
+
+<!-- 
+1. The returnValue property
+
+    ==> It’s a special property of the beforeunload event.
+
+    ==> When you assign any string to it (even an empty string),
+    the browser knows: “This page wants to confirm before unloading.”
+
+So, e.returnValue = "" means →
+“Hey browser, don’t close immediately. Ask the user for confirmation.”
+
+2. Modern browsers’ behavior
+
+    ==> For security and user experience, browsers no longer show your custom message.
+    ==> They display their own generic dialog like:
+        “Changes you made may not be saved.”
+    ==> Still, setting e.returnValue (even to "") is required to trigger that dialog.
+-->

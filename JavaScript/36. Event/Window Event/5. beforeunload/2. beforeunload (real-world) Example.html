@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>beforeunload Event Example</title>
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <h2>Unsaved Changes Protection</h2>
+        <p>Type something below, then try refreshing or closing the tab.</p>
+
+        <textarea name="" id="notes" placeholder="Write your notes here..." cols="40" rows="6"></textarea>
+
+
+        <script>
+            const notes = document.getElementById('notes');
+            let isEdited = false        // Track whether the user has typed something
+
+            // Detect if user makes any changes
+            notes.addEventListener('input', function() {
+                isEdited = true
+            });2
+
+            // Before unloading, check if user has unsaved changes
+            window.addEventListener('beforeunload', function(e) {
+                e.preventDefault();     // we need to add this because, By default, browsers just unload the page without asking.
+                e.returnValue = "";     // Trigger default browser prompt
+            });
+        </script>
+    </body>
+</html>

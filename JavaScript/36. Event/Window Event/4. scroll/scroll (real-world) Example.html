@@ -1,83 +1,68 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Scroll Event - Real World Example</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-      height: 2000px; /* Make the page scrollable */
-    }
-
-    /* Header that becomes sticky on scroll */
-    #header {
-      background-color: #007BFF;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      position: relative; /* Normal position initially */
-      transition: all 0.3s ease;
-    }
-
-    /* Sticky effect */
-    .sticky {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    }
-
-    /* Scroll-to-top button */
-    #topBtn {
-      display: none; /* Hidden initially */
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: #007BFF;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-  </style>
-</head>
-<body>
-  <div id="header">My Website Header</div>
-
-  <p style="padding:20px;">Scroll down to see the sticky header and “back to top” button appear!</p>
-
-  <button id="topBtn">⬆ Back to Top</button>
-
-  <script>
-    const header = document.getElementById('header');
-    const topBtn = document.getElementById('topBtn');
-
-    // Listen for scroll event
-    window.addEventListener('scroll', function() {
-      // 1️⃣ Sticky header logic
-      if (window.scrollY > 100) { // after 100px scroll
-        header.classList.add('sticky'); // make header fixed
-      } else {
-        header.classList.remove('sticky'); // return to normal
+  <head>
+    <title>scroll Event Example</title>
+    <style>
+      body {
+        height: 3000px;
+        margin: 0;
+        padding-top: 30px;
       }
 
-      // 2️⃣ Show/hide "back to top" button
-      if (window.scrollY > 300) {
-        topBtn.style.display = 'block';
-      } else {
-        topBtn.style.display = 'none';
+      #header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        text-align: center;
+        background: lightblue;
+        padding: 10px;
+        /* width: 100%; */
       }
-    });
 
-    // 3️⃣ Scroll back to top when button clicked
-    topBtn.addEventListener('click', function() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth' // smooth scroll
-      });
-    });
-  </script>
-</body>
+      #topBtn {
+        display: none; /* hidden initially */
+        position: fixed;
+        bottom: 20px;
+        right: 30px;
+        background-color: rgb(0, 102, 136);
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="header">My Website Header</div>
+
+    <p style="padding:20px">
+      Scroll down to see the sticky header and "back to top" button appear!
+    </p>
+
+    <button id="topBtn">Back to Top</button>
+
+
+    <script>
+      const button = document.getElementById('topBtn');
+
+      window.addEventListener('scroll', function() {
+        //  Show/hide "back to top" button
+        if (window.scrollY > 500) {
+          button.style.display = 'block';
+        } else {
+          button.style.display = 'none';
+        }
+        console.log('scroll fired')
+      })
+
+      //  Scroll back to top when button clicked
+      button.addEventListener('click', function() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'  // smooth scroll
+        })
+        console.log('click fired')
+      })
+    </script>
+  </body>
 </html>

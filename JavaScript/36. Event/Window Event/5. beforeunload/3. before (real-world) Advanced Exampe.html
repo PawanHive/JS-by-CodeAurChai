@@ -1,0 +1,114 @@
+<!-- Please learn this again in free time -->
+<!-- Please learn this again in free time -->
+<!-- Please learn this again in free time -->
+<!-- Please learn this again in free time -->
+<!-- Please learn this again in free time -->
+<!-- Please learn this again in free time -->
+<!-- Please learn this again in free time -->
+<!-- Please learn this again in free time -->
+<!-- Please learn this again in free time -->
+<!-- Please learn this again in free time -->
+<!-- Please learn this again in free time -->
+
+<!-- it has very important concept of localStorage.getItem('draft'); -->
+<!-- it has very important concept of localStorage.getItem('draft'); -->
+<!-- it has very important concept of localStorage.getItem('draft'); -->
+<!-- it has very important concept of localStorage.getItem('draft'); -->
+<!-- it has very important concept of localStorage.getItem('draft'); -->
+<!-- it has very important concept of localStorage.getItem('draft'); -->
+<!-- it has very important concept of localStorage.getItem('draft'); -->
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Advanced beforeunload Example - Auto Save Blog Editor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    textarea {
+      width: 100%;
+      height: 200px;
+      padding: 10px;
+      font-size: 16px;
+      /* border: 2px solid #ccc; */
+      border-radius: 8px;
+      outline: none;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      /* border-radius: 5px; */
+      background-color: #4CAF50;
+      color: white;
+    }
+    .status {
+      margin-top: 10px;
+      font-size: 14px;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+  <h2>✍️ Blog Post Editor</h2>
+  <p>Type your blog post below. It auto-saves every 3 seconds. Try closing the tab without saving.</p>
+  
+  <textarea id="editor" placeholder="Start writing..."></textarea>
+  <br>
+  <button id="saveBtn">Save Draft</button>
+  <p class="status" id="status"></p>
+
+  <script>
+    const editor = document.getElementById('editor');
+    const saveBtn = document.getElementById('saveBtn');
+    const status = document.getElementById('status');
+
+    let isEdited = false;
+    let autoSaveTimer;
+
+    // 🟢 Load saved draft when the page is opened
+    const savedDraft = localStorage.getItem('draft');
+    if (savedDraft) {
+      editor.value = savedDraft;
+      status.textContent = "✅ Draft restored from localStorage.";
+    }
+
+    // 🟡 Detect typing and mark as "edited"
+    editor.addEventListener('input', () => {
+      isEdited = true;
+      status.textContent = "✏️ Editing...";
+    });
+
+    // 🟠 Auto-save every 3 seconds after user types
+    editor.addEventListener('input', () => {
+      clearTimeout(autoSaveTimer);
+      autoSaveTimer = setTimeout(() => {
+        localStorage.setItem('draft', editor.value);
+        isEdited = false; // Draft is now saved
+        status.textContent = "💾 Auto-saved draft at " + new Date().toLocaleTimeString();
+      }, 3000);
+    });
+
+    // 🔵 Manual save button
+    saveBtn.addEventListener('click', () => {
+      localStorage.setItem('draft', editor.value);
+      isEdited = false;
+      status.textContent = "✅ Draft saved manually.";
+    });
+
+    // 🔴 Warn user before leaving if there are unsaved edits
+    window.addEventListener('beforeunload', (e) => {
+      if (isEdited) {
+        e.preventDefault();
+        e.returnValue = ""; // Required for showing confirmation dialog
+      }
+    });
+  </script>
+</body>
+</html>
