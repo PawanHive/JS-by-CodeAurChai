@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Car Avoid — Advanced (Single File)</title>
+<style>
+  :root{
+    --bg1: #031027;
+    --card: #071331;
+    --accent: #ffcc33;
+    --muted: #9fb0c8;
+    --danger: #ef4444;
+    --ok: #10b981;
+  }
+  *{box-sizing:border-box;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial}
+  body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: linear-gradient(180deg,var(--bg1), #05203a);
+    color:#e6f0fb;
+    padding:18px;
+  }
+
+  .wrap{
+    width:100%; max-width:980px;
+    display:grid;
+    grid-template-columns: 1fr 340px;
+    gap:18px;
+    align-items:start;
+  }
+
+  .card{
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:12px;
+    padding:14px;
+    box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+  }
+
+  /* Game canvas area */
+  .game {
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    align-items:center;
+  }
+
+  canvas{
+    width:100%;
+    max-width:420px;
+    height:calc(420px * 1.2);
+    background: linear-gradient(180deg,#0b1930,#05223b);
+    border-radius:10px;
+    display:block;
+  }
+
+  .hud{
+    display:flex;
+    gap:8px;
+    width:100%;
+    justify-content:space-between;
+    align-items:center;
+  }
+
+  .badge{
+    background: rgba(255,255,255,0.03);
+    padding:8px 10px;
+    border-radius:8px;
+    font-size:14px;
+    color:var(--muted);
+  }
+
+  .controls{
+    display:flex;
+    gap:8px;
+    margin-top:8px;
+  }
+
+  button.btn {
+    background:linear-gradient(180deg,var(--accent), #e6b800);
+    border:none;
+    padding:8px 12px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+    color:#05263a;
+  }
+  button.ghost {
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.06);
+    color:var(--muted);
+  }
+
+  /* Side panel */
+  .panel { width:100%; max-width:320px; display:flex;flex-direction:column; gap:12px; }
+  .panel h2{margin:0 0 4px 0}
+  .stat{ display:flex; justify-content:space-between; padding:10px; border-radius:8px; background: rgba(255,255,255,0.02); }
+  .small{ font-size:13px; color:var(--muted) }
+
+  /* on-screen mobile buttons */
+  .touch-controls {
+    display:flex;
+    gap:8px;
+    margin-top:8px;
+  }
+  .touch-btn{
+    width:56px;height:56px;border-radius:12px;border:none;background:rgba(255,255,255,0.04);color:white;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;
+  }
+
+  .center {
+    text-align:center;
+  }
+
+  @media (max-width:880px){
+    .wrap { grid-template-columns: 1fr; }
+    .panel { order:2; }
+  }
+
+  /* small helpers */
+  .muted { color:var(--muted); font-size:13px }
+  .danger { color:var(--danger) }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- Game card -->
+    <div class="card game">
+      <div class="hud" role="status" aria-live="polite">
+        <div class="badge">Score: <span id="score">0</span></div>
+        <div class="badge">Level: <span id="level">1</span></div>
+        <div class="badge">Lives: <span id="lives">3</span></div>
+      </div>
+
+      <!-- Canvas -->
+      <canvas id="gameCanvas" width="360" height="600" aria-label="Car avoid game"></canvas>
+
+      <div class="controls">
+        <button id="startBtn" class="btn">Start</button>
+        <button id="pauseBtn" class="ghost">Pause</button>
+        <button id="restartBtn" class="ghost">Restart</button>
+        <button id="muteBtn" class="ghost">Mute</button>
+      </div>
+
+      <div class="touch-controls" aria-hidden="false">
+        <button id="leftBtn" class="touch-btn">◀</button>
+        <button id="brakeBtn" class="touch-btn">⏸</button>
+        <button id="rightBtn" class="touch-btn">▶</button>
+      </div>
+
+      <div class="center muted">Controls: ← → or A D / Tap buttons on mobile. Press Space to toggle pause.</div>
+    </div>
+
+    <!-- Side panel -->
+    <aside class="card panel" aria-label="Game controls and stats">
+      <h2>Car Avoid — Advanced</h2>
+      <div class="small">Avoid obstacles, collect power-ups, and reach high score.</div>
+
+      <div class="stat"><div class="muted">Difficulty</div>
+        <div>
+          <select id="difficultySelect" aria-label="difficulty">
+            <option value="easy">Easy</option>
+            <option value="normal" selected>Normal</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="stat"><div class="muted">High Score</div><div id="highScore">0</div></div>
+      <div class="stat"><div class="muted">Distance</div><div id="distance">0 m</div></div>
+      <div class="stat"><div class="muted">Speed</div><div id="speedDisplay">0</div></div>
+
+      <div>
+        <div class="small">Game Tips</div>
+        <ul class="small">
+          <li>Stay inside lanes or dodge between them.</li>
+          <li>Pick up shields to survive a hit.</li>
+          <li>Score increases with distance and pickups.</li>
+        </ul>
+      </div>
+
+      <div style="display:flex;gap:8px;margin-top:6px">
+        <button id="saveScoreBtn" class="ghost">Save Score</button>
+        <button id="clearStorageBtn" class="ghost">Clear Storage</button>
+      </div>
+
+      <div style="margin-top:8px">
+        <div class="small">Last Events</div>
+        <div id="log" style="height:120px; overflow:auto; margin-top:6px; padding:6px; border-radius:6px; background:rgba(0,0,0,0.12); font-size:13px"></div>
+      </div>
+    </aside>
+  </div>
+
+<script>
+/* =========================
+   Advanced Car Avoid Game
+   Single-file: HTML + CSS + JS
+   ========================= */
+
+/* --------------- CONFIG --------------- */
+const CONFIG = {
+  lanes: 3,                   // number of lanes
+  lanePadding: 18,            // left/right margin inside canvas
+  carWidth: 46,
+  carHeight: 80,
+  baseSpeed: 2.4,             // base obstacle speed (px/frame)
+  spawnInterval: 1200,        // ms base spawn interval
+  difficultyMult: { easy:0.8, normal:1, hard:1.3 },
+  powerUpChance: 0.08,        // probability to spawn power-up instead of obstacle
+  maxLives: 3,
+  pointsPerFrame: 1,          // score increment per frame approx
+};
+
+/* --------------- STATE --------------- */
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+let width = canvas.width, height = canvas.height;
+let laneCenters = [];
+let running = false;
+let paused = false;
+let gameLoopId = null;
+let lastSpawn = 0;
+let lastTime = 0;
+let objects = [];             // obstacles & powerups
+let player = { lane:1, x:0, y:0, w:CONFIG.carWidth, h:CONFIG.carHeight, vx:0 };
+let score = 0;
+let distance = 0;
+let level = 1;
+let lives = CONFIG.maxLives;
+let speed = CONFIG.baseSpeed;
+let difficulty = 'normal';
+let highScore = 0;
+let muted = false;
+let moveHistory = [];
+let logEl = document.getElementById('log');
+
+/* UI elements */
+const scoreEl = document.getElementById('score');
+const levelEl = document.getElementById('level');
+const livesEl = document.getElementById('lives');
+const startBtn = document.getElementById('startBtn');
+const pauseBtn = document.getElementById('pauseBtn');
+const restartBtn = document.getElementById('restartBtn');
+const muteBtn = document.getElementById('muteBtn');
+const leftBtn = document.getElementById('leftBtn');
+const rightBtn = document.getElementById('rightBtn');
+const brakeBtn = document.getElementById('brakeBtn');
+const speedDisplay = document.getElementById('speedDisplay');
+const distanceEl = document.getElementById('distance');
+const highScoreEl = document.getElementById('highScore');
+const difficultySelect = document.getElementById('difficultySelect');
+const saveScoreBtn = document.getElementById('saveScoreBtn');
+const clearStorageBtn = document.getElementById('clearStorageBtn');
+
+/* --------------- UTILS --------------- */
+function log(msg){
+  const p = document.createElement('div');
+  p.textContent = (new Date()).toLocaleTimeString() + ' — ' + msg;
+  logEl.prepend(p);
+  // keep small
+  while(logEl.children.length > 30) logEl.removeChild(logEl.lastChild);
+}
+
+function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+
+/* --------------- SOUND (simple WebAudio beeps) --------------- */
+const audioCtx = window.AudioContext ? new window.AudioContext() : null;
+function beep(freq=440,dur=0.08, type='sine', vol=0.08){
+  if(muted || !audioCtx) return;
+  const o = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+  o.type = type;
+  o.frequency.value = freq;
+  g.gain.value = vol;
+  o.connect(g); g.connect(audioCtx.destination);
+  o.start();
+  setTimeout(()=> { o.stop(); o.disconnect(); g.disconnect(); }, dur*1000);
+}
+
+/* --------------- RESPONSIVE layout --------------- */
+function resizeCanvas(){
+  // maintain proportional internal resolution but scale via CSS already set
+  width = canvas.width = 360;   // fixed virtual resolution for consistent gameplay
+  height = canvas.height = 600;
+  // compute lane centers
+  const pad = CONFIG.lanePadding;
+  const usable = width - pad*2;
+  const laneWidth = usable / CONFIG.lanes;
+  laneCenters = [];
+  for(let i=0;i<CONFIG.lanes;i++){
+    laneCenters.push(pad + laneWidth * i + laneWidth/2);
+  }
+  // place player baseline
+  player.x = laneCenters[player.lane] - player.w/2;
+  player.y = height - player.h - 18;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+/* --------------- GAME OBJECTS --------------- */
+/* object: { type: 'obstacle'|'power', lane, y, w, h, color, speed, id, extra } */
+let idCounter = 1;
+function spawnObject(isPower=false){
+  const lane = Math.floor(Math.random() * CONFIG.lanes);
+  const w = 46 + Math.random()*24;
+  const h = 40 + Math.random()*40;
+  const obj = {
+    id: idCounter++,
+    type: isPower ? 'power' : 'obstacle',
+    lane,
+    y: -h - 10,
+    w, h,
+    color: isPower ? '#10b981' : '#ef4444',
+    speed: speed * (0.9 + Math.random()*0.6),
+    extra: isPower ? (Math.random()<0.5 ? 'shield' : 'boost') : null,
+  };
+  objects.push(obj);
+}
+
+/* --------------- COLLISION --------------- */
+function rectsOverlap(ax,ay,aw,ah, bx,by,bw,bh){
+  return ax < bx + bw && ax + aw > bx && ay < by + bh && ay + ah > by;
+}
+
+/* --------------- GAME FLOW --------------- */
+function startGame(){
+  if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+  difficulty = difficultySelect.value;
+  speed = CONFIG.baseSpeed * CONFIG.difficultyMult[difficulty];
+  lives = CONFIG.maxLives;
+  score = 0; distance = 0; level = 1;
+  objects = [];
+  lastSpawn = performance.now();
+  running = true; paused = false;
+  player.lane = Math.floor(CONFIG.lanes/2);
+  player.x = laneCenters[player.lane] - player.w/2;
+  saveStateSnapshot();
+  log('Game started ('+difficulty+')');
+  beep(520,0.06,'sine',0.08);
+  lastTime = performance.now();
+  loop(lastTime);
+  updateUI();
+}
+
+function pauseGame(toggle=true){
+  if(!running) return;
+  if(toggle) paused = !paused;
+  if(paused){
+    cancelAnimationFrame(gameLoopId);
+    pauseBtn.textContent = 'Resume';
+    log('Paused');
+  } else {
+    pauseBtn.textContent = 'Pause';
+    lastTime = performance.now();
+    loop(lastTime);
+    log('Resumed');
+  }
+}
+
+function restartGame(){
+  running = false;
+  cancelAnimationFrame(gameLoopId);
+  startGame();
+}
+
+function gameOver(){
+  running = false;
+  cancelAnimationFrame(gameLoopId);
+  log('Game Over — Score: '+ Math.floor(score));
+  beep(120,0.4,'sawtooth',0.12);
+  // update high score
+  if(Math.floor(score) > highScore){
+    highScore = Math.floor(score);
+    localStorage.setItem('car_highscore', highScore);
+    highScoreEl.textContent = highScore;
+    log('New high score! ' + highScore);
+  }
+  // show simple overlay (alert style)
+  setTimeout(()=> {
+    alert('Game Over! Score: ' + Math.floor(score));
+  }, 60);
+  updateUI();
+}
+
+/* --------------- SAVE & SNAPSHOT --------------- */
+function saveStateSnapshot(){
+  moveHistory.push({board: objects.slice(), playerLane: player.lane, score, lives});
+  // limit history size
+  if(moveHistory.length > 20) moveHistory.shift();
+}
+
+/* --------------- AI / OBSTACLE LOGIC --------------- */
+function updateDifficultyByScore(){
+  const levelBefore = level;
+  level = 1 + Math.floor(score / 800);
+  speed = CONFIG.baseSpeed * CONFIG.difficultyMult[difficulty] * (1 + (level-1)*0.12);
+  if(level !== levelBefore) log('Level up: ' + level);
+}
+
+/* --------------- RENDER --------------- */
+function drawRoundedRect(x,y,w,h,r, fill){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r);
+  ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r);
+  ctx.arcTo(x,y,x+w,y,r);
+  ctx.closePath();
+  ctx.fillStyle = fill;
+  ctx.fill();
+}
+
+function drawScene(){
+  // clear
+  ctx.clearRect(0,0,width,height);
+
+  // road background + stripes
+  ctx.fillStyle = '#0b1930';
+  ctx.fillRect(0,0,width,height);
+
+  // road area
+  const roadX = CONFIG.lanePadding;
+  const roadW = width - CONFIG.lanePadding*2;
+  drawRoundedRect(roadX, 8, roadW, height-16, 14, '#071a2a');
+
+  // lane separators
+  ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+  ctx.lineWidth = 2;
+  const laneW = roadW / CONFIG.lanes;
+  for(let i=1;i<CONFIG.lanes;i++){
+    const x = roadX + laneW*i;
+    // dashed separator
+    ctx.setLineDash([14,12]);
+    ctx.beginPath();
+    ctx.moveTo(x, 12);
+    ctx.lineTo(x, height-12);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  // draw objects
+  for(const o of objects){
+    const cx = laneCenters[o.lane] - o.w/2;
+    const cy = Math.round(o.y);
+    // shadow
+    ctx.fillStyle = 'rgba(0,0,0,0.25)';
+    ctx.fillRect(cx+4, cy+o.h-6, o.w, 6);
+
+    if(o.type === 'obstacle'){
+      drawRoundedRect(cx, cy, o.w, o.h, 8, o.color);
+      // little hazard stripes
+      ctx.fillStyle = 'rgba(0,0,0,0.12)';
+      ctx.fillRect(cx+6, cy+8, o.w-12, 10);
+    } else {
+      // power-up: circle
+      ctx.beginPath();
+      ctx.arc(cx + o.w/2, cy + o.h/2, Math.min(o.w,o.h)/2, 0, Math.PI*2);
+      ctx.fillStyle = '#10b981';
+      ctx.fill();
+      ctx.fillStyle = '#05263a';
+      ctx.font = '14px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(o.extra === 'shield' ? 'S' : 'B', cx + o.w/2, cy + o.h/2);
+    }
+  }
+
+  // draw player car
+  const px = player.x, py = player.y;
+  // body
+  drawRoundedRect(px, py, player.w, player.h, 10, '#ffd166');
+  // windshield
+  drawRoundedRect(px+6, py+10, player.w-12, player.h/3, 6, '#05263a');
+  // wheels
+  ctx.fillStyle = '#05263a';
+  ctx.fillRect(px+6, py+player.h-10, 12, 6);
+  ctx.fillRect(px+player.w-18, py+player.h-10, 12, 6);
+}
+
+/* --------------- MAIN LOOP --------------- */
+function loop(ts){
+  if(!running || paused) return;
+  gameLoopId = requestAnimationFrame(loop);
+
+  const dt = ts - lastTime;
+  lastTime = ts;
+
+  // spawn logic
+  if(ts - lastSpawn > CONFIG.spawnInterval * (0.8 + Math.random()*0.6) / CONFIG.difficultyMult[difficulty]){
+    // spawn obstacle or power
+    const isPower = Math.random() < CONFIG.powerUpChance;
+    spawnObject(isPower);
+    lastSpawn = ts;
+  }
+
+  // update objects
+  const toRemove = [];
+  for(const o of objects){
+    o.y += o.speed * (dt/16) * (1 + 0.02*level); // speed scales with dt and level
+    // collision check with player
+    const ox = laneCenters[o.lane] - o.w/2;
+    if(rectsOverlap(player.x, player.y, player.w, player.h, ox, o.y, o.w, o.h)){
+      if(o.type === 'power'){
+        // collect
+        if(o.extra === 'shield'){
+          lives = Math.min(CONFIG.maxLives, lives + 1);
+          log('Collected Shield (+1 life)');
+          beep(880,0.06,'sine',0.06);
+        } else {
+          // boost: temporary score burst
+          score += 120;
+          log('Nitro Boost +120');
+          beep(1100,0.09,'square',0.08);
+        }
+      } else {
+        // obstacle collision
+        lives -= 1;
+        log('Hit obstacle! Lives left: ' + lives);
+        beep(180,0.18,'sawtooth',0.1);
+        // brief flash effect: push object out
+        o.y += 20;
+      }
+      toRemove.push(o.id);
+    }
+    // cleanup if off screen
+    if(o.y > height + 80) toRemove.push(o.id);
+  }
+
+  // remove flagged
+  if(toRemove.length){
+    objects = objects.filter(o => !toRemove.includes(o.id));
+    saveStateSnapshot();
+  }
+
+  // update score & distance
+  score += CONFIG.pointsPerFrame * (dt/16) * (1 + level*0.05);
+  distance += ((speed * (dt/16)) * 0.3);
+  updateDifficultyByScore();
+
+  // simple player lane interpolation for smooth move
+  const targetX = laneCenters[player.lane] - player.w/2;
+  player.x += (targetX - player.x) * Math.min(1, 0.18 * (dt/16));
+
+  // check game over
+  if(lives <= 0){
+    gameOver();
+    return;
+  }
+
+  drawScene();
+  updateUI();
+}
+
+/* --------------- UI & Controls --------------- */
+function updateUI(){
+  scoreEl.textContent = Math.floor(score);
+  levelEl.textContent = level;
+  livesEl.textContent = lives;
+  speedDisplay.textContent = speed.toFixed(2);
+  distanceEl.textContent = Math.floor(distance) + ' m';
+  highScoreEl.textContent = highScore;
+}
+
+/* keyboard & touch handlers */
+window.addEventListener('keydown', (e) => {
+  if(e.key === 'ArrowLeft' || e.key.toLowerCase() === 'a') moveLeft();
+  if(e.key === 'ArrowRight' || e.key.toLowerCase() === 'd') moveRight();
+  if(e.key === ' ') { e.preventDefault(); pauseGame(true); }
+});
+
+leftBtn.addEventListener('touchstart', (e)=>{ e.preventDefault(); moveLeft(); });
+rightBtn.addEventListener('touchstart', (e)=>{ e.preventDefault(); moveRight(); });
+brakeBtn.addEventListener('touchstart', (e)=>{ e.preventDefault(); pauseGame(true); });
+
+leftBtn.addEventListener('click', moveLeft);
+rightBtn.addEventListener('click', moveRight);
+brakeBtn.addEventListener('click', ()=>pauseGame(true));
+
+function moveLeft(){ player.lane = clamp(player.lane - 1, 0, CONFIG.lanes-1); beep(520,0.04); saveStateSnapshot(); }
+function moveRight(){ player.lane = clamp(player.lane + 1, 0, CONFIG.lanes-1); beep(640,0.04); saveStateSnapshot(); }
+
+/* start/pause/restart buttons */
+startBtn.addEventListener('click', ()=> {
+  if(!running) startGame();
+});
+pauseBtn.addEventListener('click', ()=> pauseGame(true));
+restartBtn.addEventListener('click', ()=> restartGame());
+muteBtn.addEventListener('click', ()=> { muted = !muted; muteBtn.textContent = muted ? 'Unmute' : 'Mute'; });
+
+difficultySelect.addEventListener('change', ()=> {
+  difficulty = difficultySelect.value;
+  log('Difficulty set to ' + difficulty);
+});
+
+/* storage */
+function loadHighScore(){ highScore = parseInt(localStorage.getItem('car_highscore') || '0'); highScoreEl.textContent = highScore; }
+function saveScore(){ localStorage.setItem('car_highscore', Math.floor(score)); loadHighScore(); log('Score saved'); }
+saveScoreBtn.addEventListener('click', saveScore);
+clearStorageBtn.addEventListener('click', ()=> { if(confirm('Clear local storage?')){ localStorage.removeItem('car_highscore'); loadHighScore(); } });
+
+loadHighScore();
+
+/* --------------- INITIAL PLACEHOLDERS & UI READY --------------- */
+(function initUI(){
+  // center player lane
+  player.lane = Math.floor(CONFIG.lanes/2);
+  player.x = laneCenters[player.lane] - player.w/2;
+  player.y = height - player.h - 18;
+  updateUI();
+  log('Ready — Press Start to play');
+})();
+
+/* --------------- CLEANUP & TOUCH SWIPE (optional) --------------- */
+// Add basic swipe detection for mobile left/right
+let touchStartX = null;
+canvas.addEventListener('touchstart', (e)=>{
+  if(e.touches && e.touches[0]) touchStartX = e.touches[0].clientX;
+});
+canvas.addEventListener('touchend', (e)=>{
+  if(touchStartX === null) return;
+  const dx = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientX - touchStartX : 0;
+  if(dx > 40) moveRight();
+  else if(dx < -40) moveLeft();
+  touchStartX = null;
+});
+
+/* Prevent accidental double-tap zoom on mobile interfering with controls */
+let lastTouch=0;
+document.addEventListener('touchend', (e)=>{
+  const now = Date.now();
+  if(now - lastTouch <= 300) e.preventDefault();
+  lastTouch = now;
+}, {passive:false});
+
+/* --------------- Final note --------------- */
+log('Game engine initialized. Use arrows or touch to control the car. Good luck!');
+</script>
+</body>
+</html>
